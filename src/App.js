@@ -3,6 +3,18 @@ import cabifyLogo from './images/cabify-logo.svg';
 import './styles/App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      fullname:"",
+      job:"",
+      prefix:"",
+      phoneNumber:"",
+      email:"",
+      website:"",
+      address:"",
+    }
+  }
   render() {
     return (
       <div className="mainWrapper row">
@@ -62,7 +74,7 @@ class App extends Component {
                   <label htmlFor="phone_prefix">Prefix</label>
                 </div>
               </div>
-      {/* select final*/}
+{/* select final*/}
               <div className="formField-input col col9">
                 <div className="input">
                   <input type="tel" name="ponenumber" />
