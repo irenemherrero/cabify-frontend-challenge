@@ -75,7 +75,7 @@ input:-webkit-autofill {
       }
       
       .popup{
-        position: relative;
+        position: absolute;
         left: -3px;
         min-width: 200px;
         max-height: 180px;
@@ -86,7 +86,6 @@ input:-webkit-autofill {
         border-radius: 3px;
         box-shadow: 2px 2px 5px 5px $color-shadow-light;
           .select-group-list{
-            position: relative;
             .select-option{
               margin: 10px 10px 0px 10px;
             &-flag{

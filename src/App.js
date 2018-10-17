@@ -125,7 +125,7 @@ class App extends Component {
                       )
                     })}
                     </ul> 
-                    <div className="bottom-fade"></div>  
+                    {/*<div className="bottom-fade"></div>*/}  
                   </div>
                 </div>
               </div>
