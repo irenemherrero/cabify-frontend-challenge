@@ -13,12 +13,12 @@ input:-webkit-autofill {
 }
 
 .formField {
-  &-input {
+  &-input, &-select {
     display: flex;
     border-bottom: solid 1px $color-positive-lighter;
     transition: all $fastest ease;
     &.active {
-      .input label {
+      .input label, .select label {
         top: 0;
       }
     }
@@ -26,20 +26,20 @@ input:-webkit-autofill {
     &.focus {
       border-color: $color-focus;
       
-      .input input {
+      .input input, .select button {
         color: $color-main;
       }
     }
     
     &.disabled {
       border-bottom: dotted 1px $color-positive-lighter;
-      .input input {
+      .input input, .select button {
         color: $color-positive-lighter;
         cursor: not-allowed;
       }
     }
     
-    .input {
+    .input, .select {
       flex: 1 1 100%;
       position: relative;
       
@@ -55,27 +55,18 @@ input:-webkit-autofill {
         transition: all $fastest ease;
       }
       
-      input {
+      input, button {
         background-color: transparent;
         padding: $spacing*2 0 $spacing;
         width: 100%;
         font-size: $font-size-s;
         line-height: 16px;
       }
-    }
-  }
-  &-select {
-    display: flex;
-    border-bottom: solid 1px $color-positive-lighter;
-    transition: all $fastest ease;
-    &.active {
-      .input label {
-        top: 0;
+
+      button {
+        border: 0;
+        text-align: left;
       }
     }
   }
-}
-
-.select-button{
-  border: 0;
 }

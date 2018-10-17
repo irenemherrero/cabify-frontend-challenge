@@ -388,25 +388,25 @@ input:-webkit-autofill {
 .form {
   width: 100%; }
 
-.formField-input {
+.formField-input, .formField-select {
   display: flex;
   border-bottom: solid 1px #A7A7B3;
   transition: all 0.3s ease; }
-  .formField-input.active .input label {
+  .formField-input.active .input label, .formField-input.active .select label, .formField-select.active .input label, .formField-select.active .select label {
     top: 0; }
-  .formField-input.focus {
+  .formField-input.focus, .formField-select.focus {
     border-color: #7350FF; }
-    .formField-input.focus .input input {
+    .formField-input.focus .input input, .formField-input.focus .select button, .formField-select.focus .input input, .formField-select.focus .select button {
       color: #7350FF; }
-  .formField-input.disabled {
+  .formField-input.disabled, .formField-select.disabled {
     border-bottom: dotted 1px #A7A7B3; }
-    .formField-input.disabled .input input {
+    .formField-input.disabled .input input, .formField-input.disabled .select button, .formField-select.disabled .input input, .formField-select.disabled .select button {
       color: #A7A7B3;
       cursor: not-allowed; }
-  .formField-input .input {
+  .formField-input .input, .formField-input .select, .formField-select .input, .formField-select .select {
     flex: 1 1 100%;
     position: relative; }
-    .formField-input .input label {
+    .formField-input .input label, .formField-input .select label, .formField-select .input label, .formField-select .select label {
       color: #717285;
       font-size: 11px;
       line-height: 16px;
@@ -416,12 +416,15 @@ input:-webkit-autofill {
       right: 0;
       left: 0;
       transition: all 0.3s ease; }
-    .formField-input .input input {
+    .formField-input .input input, .formField-input .input button, .formField-input .select input, .formField-input .select button, .formField-select .input input, .formField-select .input button, .formField-select .select input, .formField-select .select button {
       background-color: transparent;
       padding: 16px 0 8px;
       width: 100%;
       font-size: 12px;
       line-height: 16px; }
+    .formField-input .input button, .formField-input .select button, .formField-select .input button, .formField-select .select button {
+      border: 0;
+      text-align: left; }
 
 .button-primary {
   box-shadow: 0 1px 4px 0 rgba(33, 34, 64, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16); }

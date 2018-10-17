@@ -9,7 +9,7 @@ class App extends Component {
       fullname: "Lola Pérez",
       job:"Developer",
       prefix:"+32",
-      phoneNumber:"9482939423",
+      phoneNumber:"",
       email:"lola_perez@gmail.com",
       website:"lolaperez.com",
       address:"Calle del Olmo, 22",
@@ -62,7 +62,7 @@ class App extends Component {
             <div className="row">
               <div className="formField-input active col col12">
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} />
+                  <input type="text" name="fullname" value={fullname} onChange="handleInput"/>
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
@@ -78,7 +78,7 @@ class App extends Component {
             </div>
 {/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
-              <div className="formField-select col col3">
+              <div className="formField-select active disabled col col3">
                 <div className="select">
                   <button id="phone_prefix" className="select-button" type="button">{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
