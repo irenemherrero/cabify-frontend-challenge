@@ -15,6 +15,9 @@ class App extends Component {
           <h1 className="title-main">Request your business card</h1>
           <div className="businessCard-cards">
             <div className="businessCard-cardBack" />
+
+{/*Tarjeta: aquí hay que meter los datos desde el estado*/}
+
             <div className="businessCard-cardFront">
               <div>
                 <p className="businessCard-cardFront-title">Laura Sánchez</p>
@@ -30,6 +33,9 @@ class App extends Component {
           </div>
         </article>
         <article className="builder col col6">
+
+{/*Coger datos del formulario, poner estilos, etc.*/}
+
           <form className="form" action="">
             <div className="row">
               <div className="formField-input active col col12">
@@ -39,8 +45,8 @@ class App extends Component {
                 </div>
               </div>
             </div>
+{/* you probably need to add active/focus/disabled classNames */}
             <div className="row row-separationMedium">
-              {/* you probably need to add active/focus/disabled classNames */}
               <div className="formField-input active focus col col12">
                 <div className="input">
                   <input type="text" name="jobdescription" value="Fronte" />
@@ -48,10 +54,15 @@ class App extends Component {
                 </div>
               </div>
             </div>
+{/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
-              <div className="col col3">
-                {/* select field will be placed here */}
+              <div className="formField-select col col3">
+                <div className="select">
+                  <button id="phone_prefix" className="select-button" type="button">+34</button>
+                  <label htmlFor="phone_prefix">Prefix</label>
+                </div>
               </div>
+      {/* select final*/}
               <div className="formField-input col col9">
                 <div className="input">
                   <input type="tel" name="ponenumber" />
@@ -84,6 +95,9 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationHuge">
+
+    {/*Activar el botón cuando todos los datos estén rellenos*/}
+
               <input className="button button-full button-primary disabled" type="submit" value="Request" />
             </div>
           </form>

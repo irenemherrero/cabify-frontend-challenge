@@ -64,4 +64,18 @@ input:-webkit-autofill {
       }
     }
   }
+  &-select {
+    display: flex;
+    border-bottom: solid 1px $color-positive-lighter;
+    transition: all $fastest ease;
+    &.active {
+      .input label {
+        top: 0;
+      }
+    }
+  }
+}
+
+.select-button{
+  border: 0;
 }
