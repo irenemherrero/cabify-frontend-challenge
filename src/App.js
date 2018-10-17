@@ -49,7 +49,7 @@ class App extends Component {
       selectState: false,
     }
     this.handleSelect = this.handleSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeInputs = this.handleChangeInputs.bind(this);
   }
 
   handleSelect(){
@@ -58,17 +58,23 @@ class App extends Component {
     })
   }
 
-  handleChange(e){
-    console.log(e.currentTarget.name);
+  handleChangeInputs(e){
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
-    this.setState({
-      data: {
-        ...this.state.data,
-        [name]: value,
-    }
-  })
-}
+    return name === !undefined
+      ? this.setState({
+          data: {
+            ...this.state.data,
+            [name]: value,
+          }
+        })
+      : this.setState({
+          data:{
+            ...this.state.data,
+            prefix: e.currentTarget.id
+          }
+      })
+  }
 
   render() {
     const {
@@ -117,7 +123,7 @@ class App extends Component {
             <div className="row">
               <div className="formField-input active col col12">
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange={this.handleChange}/>
+                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs}/>
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
@@ -126,7 +132,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active focus col col12">
                 <div className="input">
-                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChange}/>
+                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs}/>
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
@@ -141,7 +147,7 @@ class App extends Component {
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
-                        <li className="select-option">
+                        <li className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
                           {/*} <span className="select-option-flag">Banderita</span>*/}
                           <span className="select-option-country">{option.country}</span>
                           <span className="select-option-prefix">{option.prefix}</span>
@@ -156,7 +162,7 @@ class App extends Component {
 {/* select final*/}
               <div className="formField-input active col col9">
                 <div className="input">
-                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChange}/>
+                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs}/>
                   <label htmlFor="phonenumber">Phone number</label>
                 </div>
               </div>
@@ -164,7 +170,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input col col12">
                 <div className="input">
-                  <input type="email" name="email" value={email} onChange={this.handleChange}/>
+                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs}/>
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -172,7 +178,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active disabled col col12">
                 <div className="input">
-                  <input type="text" name="website" value={website} onChange={this.handleChange}/>
+                  <input type="text" name="website" value={website} onChange={this.handleChangeInputs}/>
                   <label htmlFor="website">Website</label>
                 </div>
               </div>
@@ -180,7 +186,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active col col12">
                 <div className="input">
-                  <input type="text" name="address" value={address} onChange={this.handleChange}/>
+                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs}/>
                   <label htmlFor="address">Address</label>
                 </div>
               </div>
