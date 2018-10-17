@@ -4,7 +4,7 @@ import './styles/App.css';
 
 const phonePrefixes = [
   {
-    country: 'Empty option',
+    country: '',
     prefix: '',
   },
   {
@@ -38,17 +38,18 @@ class App extends Component {
     super(props)
     this.state = {
       data: {
-              fullname: "Lola Pérez",
-              job:"Developer",
-              prefix:"+32",
-              phoneNumber:"",
-              email:"lola_perez@gmail.com",
-              website:"lolaperez.com",
-              address:"Calle del Olmo, 22",
+              fullname: '',
+              jobdescription:'',
+              prefix:'',
+              phonenumber: '',
+              email:'',
+              website:'',
+              address:'',
             },
       selectState: false,
     }
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSelect(){
@@ -57,12 +58,24 @@ class App extends Component {
     })
   }
 
+  handleChange(e){
+    console.log(e.currentTarget.name);
+    const value = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    this.setState({
+      data: {
+        ...this.state.data,
+        [name]: value,
+    }
+  })
+}
+
   render() {
     const {
       fullname,
-      job,
+      jobdescription,
       prefix,
-      phoneNumber,
+      phonenumber,
       email,
       website,
       address,
@@ -85,10 +98,10 @@ class App extends Component {
             <div className="businessCard-cardFront">
               <div>
                 <p className="businessCard-cardFront-title">{fullname}</p>
-                <p className="businessCard-cardFront-subtitle">{job}</p>
+                <p className="businessCard-cardFront-subtitle">{jobdescription}</p>
               </div>
               <div className="businessCard-cardFront-bottom">
-                <p className="businessCard-icon-phone">{prefix}</p>
+                <p className="businessCard-icon-phone">{prefix} {phonenumber}</p>
                 <p className="businessCard-icon-email">{email}</p>
                 <p className="businessCard-icon-website">{website}</p>
                 <p className="businessCard-icon-address">{address}</p>
@@ -104,7 +117,7 @@ class App extends Component {
             <div className="row">
               <div className="formField-input active col col12">
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange="handleInput"/>
+                  <input type="text" name="fullname" value={fullname} onChange={this.handleChange}/>
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
@@ -113,7 +126,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active focus col col12">
                 <div className="input">
-                  <input type="text" name="jobdescription" value={job} />
+                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChange}/>
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
@@ -141,17 +154,17 @@ class App extends Component {
                 </div>
               </div>
 {/* select final*/}
-              <div className="formField-input col col9">
+              <div className="formField-input active col col9">
                 <div className="input">
-                  <input type="tel" name="ponenumber" value={phoneNumber} />
-                  <label htmlFor="ponenumber">Phone number</label>
+                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChange}/>
+                  <label htmlFor="phonenumber">Phone number</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
               <div className="formField-input col col12">
                 <div className="input">
-                  <input type="email" name="email" value={email}/>
+                  <input type="email" name="email" value={email} onChange={this.handleChange}/>
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -159,7 +172,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active disabled col col12">
                 <div className="input">
-                  <input type="text" name="website" value={website} />
+                  <input type="text" name="website" value={website} onChange={this.handleChange}/>
                   <label htmlFor="website">Website</label>
                 </div>
               </div>
@@ -167,7 +180,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active col col12">
                 <div className="input">
-                  <input type="text" name="address" value={address} />
+                  <input type="text" name="address" value={address} onChange={this.handleChange}/>
                   <label htmlFor="address">Address</label>
                 </div>
               </div>

@@ -349,7 +349,8 @@ a {
     .businessCard-cardFront-title {
       color: #4C58A7;
       font-size: 13px;
-      line-height: 24px; }
+      line-height: 24px;
+      height: 24px; }
     .businessCard-cardFront-subtitle {
       color: #212240;
       line-height: 16px;
