@@ -4,7 +4,7 @@ import './styles/App.css';
 
 const phonePrefixes = [
   {
-    country: 'Empty country',
+    country: 'Empty option',
     prefix: '',
   },
   {
@@ -37,15 +37,26 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      fullname: "Lola Pérez",
-      job:"Developer",
-      prefix:"+32",
-      phoneNumber:"",
-      email:"lola_perez@gmail.com",
-      website:"lolaperez.com",
-      address:"Calle del Olmo, 22",
+      data: {
+              fullname: "Lola Pérez",
+              job:"Developer",
+              prefix:"+32",
+              phoneNumber:"",
+              email:"lola_perez@gmail.com",
+              website:"lolaperez.com",
+              address:"Calle del Olmo, 22",
+            },
+      selectState: false,
     }
+    this.handleSelect = this.handleSelect.bind(this);
   }
+
+  handleSelect(){
+    this.setState({
+      selectState: !this.state.selectState,
+    })
+  }
+
   render() {
     const {
       fullname,
@@ -55,7 +66,7 @@ class App extends Component {
       email,
       website,
       address,
-    } = this.state;
+    } = this.state.data;
 
     return (
       <div className="mainWrapper row">
@@ -109,11 +120,11 @@ class App extends Component {
             </div>
 {/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
-              <div className="formField-select active disabled col col3">
+              <div className="formField-select active col col3">
                 <div className="select">
-                  <button id="phone_prefix" className="select-button" type="button">{prefix}</button>
+                  <button id="phone_prefix" className="select-button" type="button" onClick={this.handleSelect}>{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
-                  <div className="popup dropdown-fade dropdown-back">
+                  <div className={`popup dropdown-fade dropdown-back ${this.state.selectState ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(

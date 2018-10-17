@@ -64,6 +64,7 @@ input:-webkit-autofill {
       }
 
       button {
+        cursor: pointer;
         border: 0;
         text-align: left;
         &:after{
@@ -75,6 +76,8 @@ input:-webkit-autofill {
       }
       
       .popup{
+        display: none;
+        font-size: $font-size-l;
         position: absolute;
         left: -3px;
         min-width: 200px;
@@ -85,9 +88,12 @@ input:-webkit-autofill {
         overflow-x: hidden;
         border-radius: 3px;
         box-shadow: 2px 2px 5px 5px $color-shadow-light;
+        cursor: pointer;
           .select-group-list{
             .select-option{
-              margin: 10px 10px 0px 10px;
+              margin: 10px 20px 20px 20px;
+              display: flex;
+              justify-content: space-between;
             &-flag{
 
             }
@@ -114,6 +120,9 @@ input:-webkit-autofill {
 
       .dropdown-back{
         //transition
+      }
+      .select-open{
+        display: block;
       }
     }
   }

@@ -427,6 +427,7 @@ input:-webkit-autofill {
       font-size: 12px;
       line-height: 16px; }
     .formField-input .input button, .formField-input .select button, .formField-select .input button, .formField-select .select button {
+      cursor: pointer;
       border: 0;
       text-align: left; }
       .formField-input .input button:after, .formField-input .select button:after, .formField-select .input button:after, .formField-select .select button:after {
@@ -435,6 +436,8 @@ input:-webkit-autofill {
         top: 14px;
         right: 0px; }
     .formField-input .input .popup, .formField-input .select .popup, .formField-select .input .popup, .formField-select .select .popup {
+      display: none;
+      font-size: 14px;
       position: absolute;
       left: -3px;
       min-width: 200px;
@@ -444,9 +447,14 @@ input:-webkit-autofill {
       overflow-y: scroll;
       overflow-x: hidden;
       border-radius: 3px;
-      box-shadow: 2px 2px 5px 5px rgba(33, 34, 64, 0.16); }
+      box-shadow: 2px 2px 5px 5px rgba(33, 34, 64, 0.16);
+      cursor: pointer; }
       .formField-input .input .popup .select-group-list .select-option, .formField-input .select .popup .select-group-list .select-option, .formField-select .input .popup .select-group-list .select-option, .formField-select .select .popup .select-group-list .select-option {
-        margin: 10px 10px 0px 10px; }
+        margin: 10px 20px 20px 20px;
+        display: flex;
+        justify-content: space-between; }
+    .formField-input .input .select-open, .formField-input .select .select-open, .formField-select .input .select-open, .formField-select .select .select-open {
+      display: block; }
 
 .button-primary {
   box-shadow: 0 1px 4px 0 rgba(33, 34, 64, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16); }
