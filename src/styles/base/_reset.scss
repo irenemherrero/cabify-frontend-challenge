@@ -35,6 +35,11 @@ body {
   line-height: 1;
 }
 
+div::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 ol, ul {
   list-style: none;
 }
@@ -70,3 +75,5 @@ input[type=number] {
 textarea {
   vertical-align: top;
 }
+
+

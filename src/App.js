@@ -2,6 +2,37 @@ import React, { Component } from 'react';
 import cabifyLogo from './images/cabify-logo.svg';
 import './styles/App.css';
 
+const phonePrefixes = [
+  {
+    country: 'Empty country',
+    prefix: '',
+  },
+  {
+    country: 'Spain',
+    prefix: '+34',
+  },
+  {
+    country: 'Chile',
+    prefix: '+56',
+  },
+  {
+    country: 'Peru',
+    prefix: '+51',
+  },
+  {
+    country: 'Mexico',
+    prefix: '+521',
+  },
+  {
+    country: 'Colombia',
+    prefix: '+57',
+  },
+  {
+    country: 'Bolivia',
+    prefix: '+56',
+  },
+]
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -82,6 +113,20 @@ class App extends Component {
                 <div className="select">
                   <button id="phone_prefix" className="select-button" type="button">{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
+                  <div className="popup dropdown-fade dropdown-back">
+                    <ul className="select-group-list">
+                    {phonePrefixes.map(option => {
+                      return(
+                        <li className="select-option">
+                          {/*} <span className="select-option-flag">Banderita</span>*/}
+                          <span className="select-option-country">{option.country}</span>
+                          <span className="select-option-prefix">{option.prefix}</span>
+                        </li>
+                      )
+                    })}
+                    </ul> 
+                    <div className="bottom-fade"></div>  
+                  </div>
                 </div>
               </div>
 {/* select final*/}
