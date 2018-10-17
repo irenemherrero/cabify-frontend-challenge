@@ -29,7 +29,7 @@ const phonePrefixes = [
   },
   {
     country: 'Bolivia',
-    prefix: '+56',
+    prefix: '+561',
   },
 ]
 
@@ -48,8 +48,18 @@ class App extends Component {
             },
       selectState: false,
     }
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleChangeInputs = this.handleChangeInputs.bind(this);
+    this.handleSelect=this.handleSelect.bind(this);
+    this.handleChangeInputs=this.handleChangeInputs.bind(this);
+    this.setWrapperRef=this.setWrapperRef.bind(this);
+    this.handleClickOutside=this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleSelect(){
@@ -61,19 +71,33 @@ class App extends Component {
   handleChangeInputs(e){
     const value = e.currentTarget.value;
     const name = e.currentTarget.name;
-    return name === !undefined
+    return name !== undefined
       ? this.setState({
           data: {
             ...this.state.data,
             [name]: value,
-          }
+          },
         })
       : this.setState({
           data:{
             ...this.state.data,
             prefix: e.currentTarget.id
-          }
+          },
+          selectState: false,
       })
+  }
+
+  setWrapperRef(node){
+    console.log(node);
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(e){
+    !this.wrapperRef.contains(e.target)
+      ? this.setState({
+        selectState: false,
+        })
+      : null;
   }
 
   render() {
@@ -143,11 +167,11 @@ class App extends Component {
                 <div className="select">
                   <button id="phone_prefix" className="select-button" type="button" onClick={this.handleSelect}>{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
-                  <div className={`popup dropdown-fade dropdown-back ${this.state.selectState ? 'select-open' : ''}`}>
+                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.selectState ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
-                        <li className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
+                        <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
                           {/*} <span className="select-option-flag">Banderita</span>*/}
                           <span className="select-option-country">{option.country}</span>
                           <span className="select-option-prefix">{option.prefix}</span>

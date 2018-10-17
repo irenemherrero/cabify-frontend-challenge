@@ -67,6 +67,9 @@ input:-webkit-autofill {
         cursor: pointer;
         border: 0;
         text-align: left;
+        width: 72px;
+        height: 40px;
+        padding: 16px 0px 8px;
         &:after{
           content: url("../images/arrow.svg");
           position: absolute;
