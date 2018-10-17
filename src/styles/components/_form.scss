@@ -66,6 +66,12 @@ input:-webkit-autofill {
       button {
         border: 0;
         text-align: left;
+        &:after{
+          content: url("../images/arrow.svg");
+          position: absolute;
+          top: 14px;
+          right: 0px;
+        }
       }
     }
   }

@@ -425,6 +425,11 @@ input:-webkit-autofill {
     .formField-input .input button, .formField-input .select button, .formField-select .input button, .formField-select .select button {
       border: 0;
       text-align: left; }
+      .formField-input .input button:after, .formField-input .select button:after, .formField-select .input button:after, .formField-select .select button:after {
+        content: url("../images/arrow.svg");
+        position: absolute;
+        top: 14px;
+        right: 0px; }
 
 .button-primary {
   box-shadow: 0 1px 4px 0 rgba(33, 34, 64, 0.16), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16); }
