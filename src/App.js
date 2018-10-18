@@ -148,10 +148,14 @@ class App extends Component {
   }
 
   handleClickOutside(e){
-   
-    // 
-    //   ? 
-    //   : null;
+    !this.wrapperRef.contains(e.target)
+    ? this.setState({
+        active: {
+          ...this.state.active,
+          prefix: false,
+        }
+      })
+    : null;
   }
 
   handleFocus(e){
