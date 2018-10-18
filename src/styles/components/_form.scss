@@ -38,7 +38,21 @@ input:-webkit-autofill {
         cursor: not-allowed;
       }
     }
+
+    &.error{
+      border-color: $color-fb-negative;
+      
+      .input input, .select button {
+        color: $color-main;
+      }
+    }
     
+    &.email-error:after{
+        content: url("../images/warning.svg");
+        position: relative;
+        top: 14px;
+        right: 0px;
+    }
     .input, .select {
       flex: 1 1 100%;
       position: relative;

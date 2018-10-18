@@ -408,6 +408,15 @@ input:-webkit-autofill {
     .formField-input.disabled .input input, .formField-input.disabled .select button, .formField-select.disabled .input input, .formField-select.disabled .select button {
       color: #A7A7B3;
       cursor: not-allowed; }
+  .formField-input.error, .formField-select.error {
+    border-color: #FC5959; }
+    .formField-input.error .input input, .formField-input.error .select button, .formField-select.error .input input, .formField-select.error .select button {
+      color: #7350FF; }
+  .formField-input.email-error:after, .formField-select.email-error:after {
+    content: url("../images/warning.svg");
+    position: relative;
+    top: 14px;
+    right: 0px; }
   .formField-input .input, .formField-input .select, .formField-select .input, .formField-select .select {
     flex: 1 1 100%;
     position: relative; }

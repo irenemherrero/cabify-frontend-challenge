@@ -66,6 +66,7 @@ class App extends Component {
       },
       activeSelect: false,
       submitButton: false,
+      errorMail: false,
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
@@ -74,6 +75,7 @@ class App extends Component {
     this.handleFocus=this.handleFocus.bind(this);
     this.handleBlur=this.handleBlur.bind(this);
     this.handleSubmitButton=this.handleSubmitButton.bind(this);
+    this.handleSubmit=this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -138,7 +140,6 @@ class App extends Component {
       website,
       address,
     } = this.state.data;
-    console.log(address);
     fullname && jobdescription && prefix && phonenumber && email && website && address
     ? this.setState({
       submitButton: true,
@@ -148,12 +149,24 @@ class App extends Component {
     })
   }
 
+  handleSubmit(){
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
+      this.setState({
+        errorMail: true, 
+      })
+    } else {
+      console.log('holi');
+      this.setState({
+        errorMail: false, 
+      })
+    }
+  }
+
   setWrapperRef(node){
     this.wrapperRef = node;
   }
 
   handleClickOutside(e){
-    console.log(this.state.data.prefix);
     !this.wrapperRef.contains(e.target)
     ? this.state.data.prefix !== ''
       ? this.setState({
@@ -192,7 +205,7 @@ class App extends Component {
         ...this.state.focus,
         [name]: true,
       },
-    }, ()=>{console.log(this.state.active[name])})
+    })
   }
 
   handleBlur(e){
@@ -313,9 +326,9 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null}`}>
+              <div className={`formField-input ${this.state.errorMail ? 'email-error': null} col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null} ${this.state.errorMail ? "error" : null}`}>
                 <div className="input">
-                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs}onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -329,7 +342,7 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input col col12 ${this.state.active.address ? "active" : null} ${this.state.focus.address ? "focus" : null}`}>
+              <div className={`formField-input col col12 ${this.state.active.address ? "active" : null} ${this.state.focus.address ? "focus" : null}`} >
                 <div className="input">
                   <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="address">Address</label>
@@ -340,7 +353,7 @@ class App extends Component {
 
     {/*Activar el botón cuando todos los datos estén rellenos*/}
 
-              <input className={`button button-full button-primary ${!this.state.submitButton ? 'disabled': null}`} type="submit" value="Request" />
+              <input className={`button button-full button-primary ${!this.state.submitButton ? 'disabled': null}`} type="submit" value="Request" onClick={this.handleSubmit}/>
             </div>
           </form>
         </article>
