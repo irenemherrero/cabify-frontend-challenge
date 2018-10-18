@@ -43,15 +43,34 @@ class App extends Component {
               prefix:'',
               phonenumber: '',
               email:'',
-              website:'',
+              website:'www.cabify.com',
               address:'',
             },
-      selectState: false,
+      active: {
+                      fullname: false,
+                      jobdescription: false,
+                      prefix: false,
+                      phonenumber: false,
+                      email: false,
+                      website: true,
+                      address: false,
+      },
+      focus: {
+                      fullname: false,
+                      jobdescription: false,
+                      prefix: false,
+                      phonenumber: false,
+                      email: false,
+                      website: false,
+                      address: false,
+      },
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
     this.setWrapperRef=this.setWrapperRef.bind(this);
     this.handleClickOutside=this.handleClickOutside.bind(this);
+    this.handleFocus=this.handleFocus.bind(this);
+    this.handleBlur=this.handleBlur.bind(this);
   }
 
   componentDidMount(){
@@ -64,13 +83,16 @@ class App extends Component {
 
   handleSelect(){
     this.setState({
-      selectState: !this.state.selectState,
+      active: {
+        ...this.state.active,
+        prefix: !this.state.active.prefix,
+      }
     })
   }
 
   handleChangeInputs(e){
-    const value = e.currentTarget.value;
-    const name = e.currentTarget.name;
+    const value = e.target.value;
+    const name = e.target.name;
     return name !== undefined
       ? this.setState({
           data: {
@@ -83,21 +105,66 @@ class App extends Component {
             ...this.state.data,
             prefix: e.currentTarget.id
           },
-          selectState: false,
+          active: {
+            ...this.state.active,
+            prefix: false,
+          }
       })
   }
 
   setWrapperRef(node){
-    console.log(node);
     this.wrapperRef = node;
   }
 
   handleClickOutside(e){
     !this.wrapperRef.contains(e.target)
       ? this.setState({
-        selectState: false,
+          active: {
+            ...this.state.active,
+            prefix: false,
+          }
         })
       : null;
+  }
+
+  handleFocus(e){
+    const name = e.target.name;
+    this.setState({
+      active: {
+        ...this.state.active,
+        [name]: true,
+      },
+      focus: {
+        ...this.state.focus,
+        [name]: true,
+      },
+    }, ()=>{console.log(this.state.active[name])})
+  }
+
+  handleBlur(e){
+    const name = e.target.name;
+    const value = e.target.value;
+    return !value
+      ? this.setState({
+          active: {
+            ...this.state.active,
+            [name]: false,
+          },
+          focus: {
+            ...this.state.active,
+            [name]: false,
+          },
+        })
+      : this.setState({
+        active: {
+          ...this.state.active,
+          [name]: true,
+        },
+        focus: {
+          ...this.state.active,
+          [name]: false,
+        },
+        })
   }
 
   render() {
@@ -145,29 +212,29 @@ class App extends Component {
 
           <form className="form" action="">
             <div className="row">
-              <div className="formField-input active col col12">
+              <div className={`formField-input col col12 ${this.state.active.fullname ? "active" : null} ${this.state.focus.fullname ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs}/>
+                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
             </div>
 {/* you probably need to add active/focus/disabled classNames */}
             <div className="row row-separationMedium">
-              <div className="formField-input active focus col col12">
+              <div className={`formField-input col col12 ${this.state.active.jobdescription ? "active" : null} ${this.state.focus.jobdescription ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs}/>
+                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
             </div>
 {/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
-              <div className="formField-select active col col3">
+              <div className="formField-select col col3">
                 <div className="select">
                   <button id="phone_prefix" className="select-button" type="button" onClick={this.handleSelect}>{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
-                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.selectState ? 'select-open' : ''}`}>
+                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.active.prefix ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
@@ -184,17 +251,17 @@ class App extends Component {
                 </div>
               </div>
 {/* select final*/}
-              <div className="formField-input active col col9">
+              <div className={`formField-input col col9 ${this.state.active.phonenumber ? "active" : null} ${this.state.focus.phonenumber ? "focus" : null}`}>
                 <div className="input">
-                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs}/>
+                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="phonenumber">Phone number</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className="formField-input col col12">
+              <div className={`formField-input col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null}`}>
                 <div className="input">
-                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs}/>
+                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs}onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -202,15 +269,15 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active disabled col col12">
                 <div className="input">
-                  <input type="text" name="website" value={website} onChange={this.handleChangeInputs}/>
+                  <input type="text" name="website" value={website} disabled/>
                   <label htmlFor="website">Website</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className="formField-input active col col12">
+              <div className={`formField-input col col12 ${this.state.active.address ? "active" : null} ${this.state.focus.address ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs}/>
+                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="address">Address</label>
                 </div>
               </div>
