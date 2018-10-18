@@ -72,7 +72,6 @@ class App extends Component {
     this.handleClickOutside=this.handleClickOutside.bind(this);
     this.handleFocus=this.handleFocus.bind(this);
     this.handleBlur=this.handleBlur.bind(this);
-    this.handleStyleSelect=this.handleStyleSelect.bind(this);
   }
 
   componentDidMount(){
@@ -113,24 +112,6 @@ class App extends Component {
           ...this.state.data,
           prefix: id,
         }, 
-      }, this.handleStyleSelect(id)
-      )
-  }
-
-  handleStyleSelect(id){
-    !id
-    ? this.setState({
-        activeSelect: !this.state.activeSelect,
-        active: {
-          ...this.state.active,
-          prefix: false,
-        },
-        focus: {
-          ...this.state.focus,
-          prefix: false,
-        },
-      })
-    : this.setState({
         activeSelect: !this.state.activeSelect,
         active: {
           ...this.state.active,
@@ -138,9 +119,10 @@ class App extends Component {
         },
         focus: {
           ...this.state.focus,
-          prefix: false,
+          prefix: true,
         },
-    })
+      }
+      )
   }
 
   setWrapperRef(node){
@@ -148,13 +130,31 @@ class App extends Component {
   }
 
   handleClickOutside(e){
+    console.log(this.state.data.prefix);
     !this.wrapperRef.contains(e.target)
-    ? this.setState({
+    ? this.state.data.prefix !== ''
+      ? this.setState({
+          activeSelect: false,
+          active: {
+            ...this.state.active,
+            prefix: true,
+          },
+          focus: {
+            ...this.state.focus,
+            prefix: false,
+          },
+          })
+      : this.setState({
+        activeSelect: false,
         active: {
           ...this.state.active,
           prefix: false,
-        }
-      })
+        },
+        focus: {
+          ...this.state.focus,
+          prefix: false,
+        },
+        })
     : null;
   }
 
