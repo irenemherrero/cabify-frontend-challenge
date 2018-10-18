@@ -4,7 +4,7 @@ import './styles/App.css';
 
 const phonePrefixes = [
   {
-    country: '',
+    country: 'Select your prefix',
     prefix: '',
   },
   {
@@ -65,6 +65,7 @@ class App extends Component {
                       address: false,
       },
       activeSelect: false,
+      submitButton: false,
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
@@ -72,6 +73,7 @@ class App extends Component {
     this.handleClickOutside=this.handleClickOutside.bind(this);
     this.handleFocus=this.handleFocus.bind(this);
     this.handleBlur=this.handleBlur.bind(this);
+    this.handleSubmitButton=this.handleSubmitButton.bind(this);
   }
 
   componentDidMount(){
@@ -106,7 +108,8 @@ class App extends Component {
             ...this.state.data,
             [name]: value,
           },
-        })
+        },() => {this.handleSubmitButton()}
+        )
       : this.setState({
         data: {
           ...this.state.data,
@@ -121,8 +124,28 @@ class App extends Component {
           ...this.state.focus,
           prefix: true,
         },
-      }
+      }, () => {this.handleSubmitButton()}
       )
+  }
+
+  handleSubmitButton(){
+    const {
+      fullname,
+      jobdescription,
+      prefix,
+      phonenumber,
+      email,
+      website,
+      address,
+    } = this.state.data;
+    console.log(address);
+    fullname && jobdescription && prefix && phonenumber && email && website && address
+    ? this.setState({
+      submitButton: true,
+    })
+    : this.setState({
+      submitButton: false,
+    })
   }
 
   setWrapperRef(node){
@@ -317,7 +340,7 @@ class App extends Component {
 
     {/*Activar el botón cuando todos los datos estén rellenos*/}
 
-              <input className="button button-full button-primary disabled" type="submit" value="Request" />
+              <input className={`button button-full button-primary ${!this.state.submitButton ? 'disabled': null}`} type="submit" value="Request" />
             </div>
           </form>
         </article>
