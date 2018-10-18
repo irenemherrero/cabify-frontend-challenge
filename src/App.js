@@ -85,7 +85,7 @@ class App extends Component {
 
   handleSelect(){
     this.setState({
-      activeSelect: !this.state.activeSelect,
+      activeSelect: true,
       active: {
         ...this.state.active,
         prefix: true,
@@ -101,9 +101,6 @@ class App extends Component {
     const value = e.target.value;
     const name = e.target.name;
     const id = e.target.id;
-    console.log(id);
-    // const button = document.getElementById("phone_prefix");
-    // console.log(!button.innerHTML);
     return name !== undefined
       ? this.setState({
           data: {
@@ -116,13 +113,12 @@ class App extends Component {
           ...this.state.data,
           prefix: id,
         }, 
-      }, () => {console.log(this.state.data.prefix)}
+      }, this.handleStyleSelect(id)
       )
   }
 
-  handleStyleSelect(e){
-    console.log(this.state.data.prefix);
-    !this.state.data.prefix
+  handleStyleSelect(id){
+    !id
     ? this.setState({
         activeSelect: !this.state.activeSelect,
         active: {
@@ -135,10 +131,6 @@ class App extends Component {
         },
       })
     : this.setState({
-        data: {
-          ...this.state.data,
-          prefix: e.target.id,
-        },
         activeSelect: !this.state.activeSelect,
         active: {
           ...this.state.active,
@@ -157,7 +149,7 @@ class App extends Component {
 
   handleClickOutside(e){
    
-    // !this.wrapperRef.contains(e.target)
+    // 
     //   ? 
     //   : null;
   }
