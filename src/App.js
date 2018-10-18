@@ -64,6 +64,7 @@ class App extends Component {
                       website: false,
                       address: false,
       },
+      activeSelect: false,
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
@@ -71,6 +72,7 @@ class App extends Component {
     this.handleClickOutside=this.handleClickOutside.bind(this);
     this.handleFocus=this.handleFocus.bind(this);
     this.handleBlur=this.handleBlur.bind(this);
+    this.handleStyleSelect=this.handleStyleSelect.bind(this);
   }
 
   componentDidMount(){
@@ -83,9 +85,14 @@ class App extends Component {
 
   handleSelect(){
     this.setState({
+      activeSelect: !this.state.activeSelect,
       active: {
         ...this.state.active,
-        prefix: !this.state.active.prefix,
+        prefix: true,
+      },
+      focus: {
+        ...this.state.focus,
+        prefix: true,
       }
     })
   }
@@ -93,6 +100,10 @@ class App extends Component {
   handleChangeInputs(e){
     const value = e.target.value;
     const name = e.target.name;
+    const id = e.target.id;
+    console.log(id);
+    // const button = document.getElementById("phone_prefix");
+    // console.log(!button.innerHTML);
     return name !== undefined
       ? this.setState({
           data: {
@@ -101,15 +112,43 @@ class App extends Component {
           },
         })
       : this.setState({
-          data:{
-            ...this.state.data,
-            prefix: e.currentTarget.id
-          },
-          active: {
-            ...this.state.active,
-            prefix: false,
-          }
+        data: {
+          ...this.state.data,
+          prefix: id,
+        }, 
+      }, () => {console.log(this.state.data.prefix)}
+      )
+  }
+
+  handleStyleSelect(e){
+    console.log(this.state.data.prefix);
+    !this.state.data.prefix
+    ? this.setState({
+        activeSelect: !this.state.activeSelect,
+        active: {
+          ...this.state.active,
+          prefix: false,
+        },
+        focus: {
+          ...this.state.focus,
+          prefix: false,
+        },
       })
+    : this.setState({
+        data: {
+          ...this.state.data,
+          prefix: e.target.id,
+        },
+        activeSelect: !this.state.activeSelect,
+        active: {
+          ...this.state.active,
+          prefix: true,
+        },
+        focus: {
+          ...this.state.focus,
+          prefix: false,
+        },
+    })
   }
 
   setWrapperRef(node){
@@ -117,14 +156,10 @@ class App extends Component {
   }
 
   handleClickOutside(e){
-    !this.wrapperRef.contains(e.target)
-      ? this.setState({
-          active: {
-            ...this.state.active,
-            prefix: false,
-          }
-        })
-      : null;
+   
+    // !this.wrapperRef.contains(e.target)
+    //   ? 
+    //   : null;
   }
 
   handleFocus(e){
@@ -230,11 +265,11 @@ class App extends Component {
             </div>
 {/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
-              <div className="formField-select col col3">
+              <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : null} ${this.state.focus.prefix ? 'focus' : null}`}>
                 <div className="select">
                   <button id="phone_prefix" className="select-button" type="button" onClick={this.handleSelect}>{prefix}</button>
                   <label htmlFor="phone_prefix">Prefix</label>
-                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.active.prefix ? 'select-open' : ''}`}>
+                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
