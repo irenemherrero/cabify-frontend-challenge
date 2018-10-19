@@ -80,10 +80,34 @@ class App extends Component {
     this.handleSubmit=this.handleSubmit.bind(this);
     this.validateInputs=this.validateInputs.bind(this);
     this.sendParams=this.sendParams.bind(this);
+    this.saveLocalStorage=this.saveLocalStorage.bind(this);
   }
 
   componentDidMount(){
     document.addEventListener('mousedown', this.handleClickOutside);
+    const cardData = JSON.parse(localStorage.getItem('cardData'))
+    if(cardData){
+      this.setState({
+        data: {
+          fullname: cardData.fullname || '',
+          jobdescription: cardData.jobdescription || '',
+          prefix: cardData.prefix || '',
+          phonenumber: cardData.phonenumber || '',
+          email: cardData.email || '',
+          website: cardData.website,
+          address: cardData.address || '',
+        },
+        active: {
+          fullname: cardData.fullname ? true : false,
+          jobdescription: cardData.jobdescription ? true : false,
+          prefix: cardData.prefix ? true : false,
+          phonenumber: cardData.phonenumber ? true : false,
+          email: cardData.email ? true : false,
+          website: cardData.website ? true : false,
+          address: cardData.address ? true : false,
+        },
+      })
+    }
   }
 
   componentWillUnmount(){
@@ -137,7 +161,8 @@ class App extends Component {
             ...this.state.data,
             [name]: value,
           },
-        },() => {this.handleSubmitButton()}
+        },() => {this.handleSubmitButton();
+                this.saveLocalStorage();}
         )
       : this.setState({
         data: {
@@ -153,7 +178,8 @@ class App extends Component {
           ...this.state.focus,
           prefix: true,
         },
-      }, () => {this.handleSubmitButton()}
+      }, () => {this.handleSubmitButton();
+                this.saveLocalStorage();}
       )
   }
 
@@ -271,6 +297,12 @@ class App extends Component {
   
   sendParams(){
     console.log('Data to send', this.state.data);
+  }
+
+  //Save data in Local Storage in case of refreshing
+
+  saveLocalStorage() {
+    localStorage.setItem('cardData', JSON.stringify(this.state.data));
   }
 
   render() {
