@@ -122,10 +122,10 @@ class App extends Component {
           ...this.state.active,
           prefix: true,
         },
-        focus: {
-          ...this.state.focus,
-          prefix: true,
-        },
+        // focus: {
+        //   ...this.state.focus,
+        //   prefix: true,
+        // },
       }, () => {this.handleSubmitButton()}
       )
   }
@@ -155,7 +155,6 @@ class App extends Component {
         errorMail: true, 
       })
     } else {
-      console.log('holi');
       this.setState({
         errorMail: false, 
       })
@@ -218,7 +217,7 @@ class App extends Component {
             [name]: false,
           },
           focus: {
-            ...this.state.active,
+            ...this.state.focus,
             [name]: false,
           },
         })
@@ -228,7 +227,7 @@ class App extends Component {
           [name]: true,
         },
         focus: {
-          ...this.state.active,
+          ...this.state.focus,
           [name]: false,
         },
         })
