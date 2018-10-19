@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import cabifyLogo from './images/cabify-logo.svg';
 import './styles/App.css';
 
+//Data from select
+
 const phonePrefixes = [
   {
     country: 'Select your prefix',
@@ -38,31 +40,31 @@ class App extends Component {
     super(props)
     this.state = {
       data: {
-              fullname: '',
-              jobdescription:'',
-              prefix:'',
-              phonenumber: '',
-              email:'',
-              website:'www.cabify.com',
-              address:'',
-            },
+        fullname: 'a',
+        jobdescription:'a',
+        prefix:'a',
+        phonenumber: 'a',
+        email:'a',
+        website:'www.cabify.com',
+        address:'a',
+      },
       active: {
-                      fullname: false,
-                      jobdescription: false,
-                      prefix: false,
-                      phonenumber: false,
-                      email: false,
-                      website: true,
-                      address: false,
+        fullname: false,
+        jobdescription: false,
+        prefix: false,
+        phonenumber: false,
+        email: false,
+        website: true,
+        address: false,
       },
       focus: {
-                      fullname: false,
-                      jobdescription: false,
-                      prefix: false,
-                      phonenumber: false,
-                      email: false,
-                      website: false,
-                      address: false,
+        fullname: false,
+        jobdescription: false,
+        prefix: false,
+        phonenumber: false,
+        email: false,
+        website: false,
+        address: false,
       },
       activeSelect: false,
       submitButton: false,
@@ -72,7 +74,7 @@ class App extends Component {
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
     this.setWrapperRef=this.setWrapperRef.bind(this);
     this.handleClickOutside=this.handleClickOutside.bind(this);
-    this.handleFocus=this.handleFocus.bind(this);
+    this.handleActiveFocus=this.handleActiveFocus.bind(this);
     this.handleBlur=this.handleBlur.bind(this);
     this.handleSubmitButton=this.handleSubmitButton.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -85,6 +87,26 @@ class App extends Component {
   componentWillUnmount(){
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
+
+  // Functions to control input styles
+
+  // Input styles (active, focused)
+
+  handleActiveFocus(e){
+    const name = e.target.name;
+    this.setState({
+      active: {
+        ...this.state.active,
+        [name]: true,
+      },
+      focus: {
+        ...this.state.focus,
+        [name]: true,
+      },
+    })
+  }
+
+  // Select styles (opened, active, focus)
 
   handleSelect(){
     this.setState({
@@ -99,6 +121,9 @@ class App extends Component {
       }
     })
   }
+
+  // Function to save input data in state. 
+  // Function to control select styles when an option is selected.
 
   handleChangeInputs(e){
     const value = e.target.value;
@@ -122,45 +147,44 @@ class App extends Component {
           ...this.state.active,
           prefix: true,
         },
-        // focus: {
-        //   ...this.state.focus,
-        //   prefix: true,
-        // },
+        focus: {
+          ...this.state.focus,
+          prefix: true,
+        },
       }, () => {this.handleSubmitButton()}
       )
   }
 
-  handleSubmitButton(){
-    const {
-      fullname,
-      jobdescription,
-      prefix,
-      phonenumber,
-      email,
-      website,
-      address,
-    } = this.state.data;
-    fullname && jobdescription && prefix && phonenumber && email && website && address
-    ? this.setState({
-      submitButton: true,
-    })
-    : this.setState({
-      submitButton: false,
-    })
+  //Input styles (unactive, unfocused)
+
+  handleBlur(e){
+    const name = e.target.name;
+    const value = e.target.value;
+    return !value
+      ? this.setState({
+          active: {
+            ...this.state.active,
+            [name]: false,
+          },
+          focus: {
+            ...this.state.focus,
+            [name]: false,
+          },
+        })
+      : this.setState({
+        active: {
+          ...this.state.active,
+          [name]: true,
+        },
+        focus: {
+          ...this.state.focus,
+          [name]: false,
+        },
+        })
   }
 
-  handleSubmit(){
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
-      this.setState({
-        errorMail: true, 
-      })
-    } else {
-      this.setState({
-        errorMail: false, 
-      })
-    }
-  }
-
+  // Select styles when click outside select.
+  
   setWrapperRef(node){
     this.wrapperRef = node;
   }
@@ -193,45 +217,48 @@ class App extends Component {
     : null;
   }
 
-  handleFocus(e){
-    const name = e.target.name;
-    this.setState({
-      active: {
-        ...this.state.active,
-        [name]: true,
-      },
-      focus: {
-        ...this.state.focus,
-        [name]: true,
-      },
+  //Submit functions
+
+  //Activate button when all inputs are filled.
+  
+  handleSubmitButton(){
+    const {
+      fullname,
+      jobdescription,
+      prefix,
+      phonenumber,
+      email,
+      website,
+      address,
+    } = this.state.data;
+    fullname && jobdescription && prefix && phonenumber && email && website && address
+    ? this.setState({
+      submitButton: true,
+    })
+    : this.setState({
+      submitButton: false,
     })
   }
 
-  handleBlur(e){
-    const name = e.target.name;
-    const value = e.target.value;
-    return !value
-      ? this.setState({
-          active: {
-            ...this.state.active,
-            [name]: false,
-          },
-          focus: {
-            ...this.state.focus,
-            [name]: false,
-          },
-        })
-      : this.setState({
-        active: {
-          ...this.state.active,
-          [name]: true,
-        },
-        focus: {
-          ...this.state.focus,
-          [name]: false,
-        },
-        })
+  //Test that email has the proper format
+
+  handleSubmit(){
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
+      this.setState({
+        errorMail: true, 
+      })
+    } else {
+      this.setState({
+        errorMail: false, 
+      })
+    }
   }
+
+  
+
+  
+
+  
 
   render() {
     const {
@@ -280,7 +307,7 @@ class App extends Component {
             <div className="row">
               <div className={`formField-input col col12 ${this.state.active.fullname ? "active" : null} ${this.state.focus.fullname ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
@@ -289,7 +316,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className={`formField-input col col12 ${this.state.active.jobdescription ? "active" : null} ${this.state.focus.jobdescription ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
@@ -319,7 +346,7 @@ class App extends Component {
 {/* select final*/}
               <div className={`formField-input col col9 ${this.state.active.phonenumber ? "active" : null} ${this.state.focus.phonenumber ? "focus" : null}`}>
                 <div className="input">
-                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="phonenumber">Phone number</label>
                 </div>
               </div>
@@ -327,7 +354,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className={`formField-input ${this.state.errorMail ? 'email-error': null} col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null} ${this.state.errorMail ? "error" : null}`}>
                 <div className="input">
-                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -343,7 +370,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className={`formField-input col col12 ${this.state.active.address ? "active" : null} ${this.state.focus.address ? "focus" : null}`} >
                 <div className="input">
-                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="address">Address</label>
                 </div>
               </div>
