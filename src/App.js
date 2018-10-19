@@ -40,13 +40,13 @@ class App extends Component {
     super(props)
     this.state = {
       data: {
-        fullname: 'a',
-        jobdescription:'a',
-        prefix:'a',
-        phonenumber: 'a',
-        email:'a',
+        fullname: '',
+        jobdescription:'',
+        prefix:'',
+        phonenumber: '',
+        email:'',
         website:'www.cabify.com',
-        address:'a',
+        address:'',
       },
       active: {
         fullname: false,
@@ -78,6 +78,8 @@ class App extends Component {
     this.handleBlur=this.handleBlur.bind(this);
     this.handleSubmitButton=this.handleSubmitButton.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.validateInputs=this.validateInputs.bind(this);
+    this.sendParams=this.sendParams.bind(this);
   }
 
   componentDidMount(){
@@ -88,7 +90,7 @@ class App extends Component {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  // Functions to control input styles
+  // Functions to control styles
 
   // Input styles (active, focused)
 
@@ -183,7 +185,7 @@ class App extends Component {
         })
   }
 
-  // Select styles when click outside select.
+  // Select styles when clicking outside select.
   
   setWrapperRef(node){
     this.wrapperRef = node;
@@ -217,8 +219,6 @@ class App extends Component {
     : null;
   }
 
-  //Submit functions
-
   //Activate button when all inputs are filled.
   
   handleSubmitButton(){
@@ -240,25 +240,38 @@ class App extends Component {
     })
   }
 
+  //Submit functions
+
+  //Handle submit
+
+  handleSubmit(e){
+    e.preventDefault();
+    this.validateInputs()
+      ? this.sendParams()
+      : null
+  }
+
   //Test that email has the proper format
 
-  handleSubmit(){
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
-      this.setState({
-        errorMail: true, 
-      })
-    } else {
+  validateInputs(){
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
       this.setState({
         errorMail: false, 
       })
+      return true
+    } else {
+      this.setState({
+        errorMail: true, 
+      })
+      return false
     }
   }
 
+  //Function to send data. Here would be the request.
   
-
-  
-
-  
+  sendParams(){
+    console.log('Data to send', this.state.data);
+  }
 
   render() {
     const {
@@ -307,7 +320,7 @@ class App extends Component {
             <div className="row">
               <div className={`formField-input col col12 ${this.state.active.fullname ? "active" : null} ${this.state.focus.fullname ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
@@ -316,7 +329,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className={`formField-input col col12 ${this.state.active.jobdescription ? "active" : null} ${this.state.focus.jobdescription ? "focus" : null}`}>
                 <div className="input">
-                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
@@ -333,8 +346,8 @@ class App extends Component {
                       return(
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
                           {/*} <span className="select-option-flag">Banderita</span>*/}
-                          <span className="select-option-country">{option.country}</span>
-                          <span className="select-option-prefix">{option.prefix}</span>
+                          <span className="select-option-country" id={option.prefix}>{option.country}</span>
+                          <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
                         </li>
                       )
                     })}
@@ -370,7 +383,7 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className={`formField-input col col12 ${this.state.active.address ? "active" : null} ${this.state.focus.address ? "focus" : null}`} >
                 <div className="input">
-                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
+                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
                   <label htmlFor="address">Address</label>
                 </div>
               </div>
