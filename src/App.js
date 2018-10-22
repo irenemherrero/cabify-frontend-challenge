@@ -6,7 +6,7 @@ import './styles/App.css';
 
 const phonePrefixes = [
   {
-    country: 'Select your prefix',
+    country: 'Empty option',
     prefix: '',
   },
   {
@@ -42,7 +42,7 @@ class App extends Component {
       data: {
         fullname: '',
         jobdescription:'',
-        prefix:'',
+        prefix: '+34',
         phonenumber: '',
         email:'',
         website:'www.cabify.com',
@@ -51,7 +51,7 @@ class App extends Component {
       active: {
         fullname: false,
         jobdescription: false,
-        prefix: false,
+        prefix: true,
         phonenumber: false,
         email: false,
         website: true,
