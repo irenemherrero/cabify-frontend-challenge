@@ -84,6 +84,7 @@ class App extends Component {
     this.saveLocalStorage=this.saveLocalStorage.bind(this);
     this.validateMail=this.validateMail.bind(this);
     this.validatePhone=this.validatePhone.bind(this);
+    // this.handlePrefixInputText=this.handlePrefixInputText.bind(this);
   }
 
   componentDidMount(){
@@ -110,9 +111,7 @@ class App extends Component {
           address: cardData.address ? true : false,
         },
       }, () => {
-        console.log(this.state.data);
         this.handleSubmitButton();
-        console.log(this.state.submitButton);
       })
       
     }
@@ -156,7 +155,7 @@ class App extends Component {
     })
   }
 
-  // Function to save input data in state. 
+  // Function to save input in state. 
   // Function to control select styles when an option is selected.
 
   handleChangeInputs(e){
@@ -225,6 +224,8 @@ class App extends Component {
     this.wrapperRef = node;
   }
 
+  //Make disapear select when clicking outside
+
   handleClickOutside(e){
     !this.wrapperRef.contains(e.target)
     ? this.state.data.prefix !== ''
@@ -280,6 +281,7 @@ class App extends Component {
 
   handleSubmit(e){
     e.preventDefault();
+    console.log(this.validateInputs())
     this.validateInputs()
       ? this.sendParams()
       : null
@@ -290,7 +292,7 @@ class App extends Component {
   validateInputs(){
     this.validateMail();
     this.validatePhone();
-    this.validateMail() && this.validatePhone() ? true : false;
+    return this.validateMail() && this.validatePhone() ? true : false;
   }
 
   //Test that email has the format
@@ -312,16 +314,15 @@ class App extends Component {
   //Test that phone number contains only numbers (0-9)
   
   validatePhone(){
-    console.log(this.state.data.phonenumber);
     if(/^[0-9]+$/.test(this.state.data.phonenumber)){
       this.setState({
         errorPhone: false, 
-      }, ()=> {console.log(this.state.errorPhone)});
+      });
       return true;
     } else {
       this.setState({
         errorPhone: true, 
-      }, ()=> {console.log(this.state.errorPhone)});
+      });
       return false
     }
   }
@@ -360,9 +361,6 @@ class App extends Component {
           <h1 className="title-main">Request your business card</h1>
           <div className="businessCard-cards">
             <div className="businessCard-cardBack" />
-
-{/*Tarjeta: aquí hay que meter los datos desde el estado*/}
-
             <div className="businessCard-cardFront">
               <div>
                 <p className="businessCard-cardFront-title">{fullname}</p>
@@ -378,9 +376,6 @@ class App extends Component {
           </div>
         </article>
         <article className="builder col col6">
-
-{/*Coger datos del formulario, poner estilos, etc.*/}
-
           <form className="form" action="">
             <div className="row">
               <div className={`formField-input col col12 ${this.state.active.fullname ? "active" : null} ${this.state.focus.fullname ? "focus" : null}`}>
@@ -390,7 +385,6 @@ class App extends Component {
                 </div>
               </div>
             </div>
-{/* you probably need to add active/focus/disabled classNames */}
             <div className="row row-separationMedium">
               <div className={`formField-input col col12 ${this.state.active.jobdescription ? "active" : null} ${this.state.focus.jobdescription ? "focus" : null}`}>
                 <div className="input">
@@ -399,11 +393,10 @@ class App extends Component {
                 </div>
               </div>
             </div>
-{/* select field will be placed here */}
             <div className="row row-separationMedium row-gutterMedium">
               <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : null} ${this.state.focus.prefix ? 'focus' : null}`}>
                 <div className="select">
-                  <button id="phone_prefix" className="select-button" type="button" onClick={this.handleSelect}>{prefix}</button>
+                  <input id="phone_prefix" name="prefix" className="select-button" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
                   <label htmlFor="phone_prefix">Prefix</label>
                   <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
