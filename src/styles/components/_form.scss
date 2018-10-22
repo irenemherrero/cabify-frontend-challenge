@@ -53,18 +53,23 @@ input:-webkit-autofill {
         top: 14px;
         right: 0px;
     }
+
     &.arrow-down:after{
       content: url("../images/arrow.svg");
       position: relative;
       top: 14px;
       right: 0px;
+      cursor: pointer;
     }
+
     &.arrow-up:after{
       content: url("../images/arrow.svg");
       position: relative;
       transform: rotate(180deg);
       top: -4px;
+      cursor: pointer;
     }
+
     .input, .select {
       flex: 1 1 100%;
       position: relative;
@@ -96,7 +101,6 @@ input:-webkit-autofill {
         width: 72px;
         height: 40px;
         padding: 16px 0px 8px;
-        
       }
       
       .popup{
@@ -137,9 +141,6 @@ input:-webkit-autofill {
             }
             &-country-selected{
               color: $color-black;
-            }
-            &-prefix{
-
             }
           }
         }

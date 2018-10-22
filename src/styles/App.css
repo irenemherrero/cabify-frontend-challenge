@@ -425,12 +425,14 @@ input:-webkit-autofill {
     content: url("../images/arrow.svg");
     position: relative;
     top: 14px;
-    right: 0px; }
+    right: 0px;
+    cursor: pointer; }
   .formField-input.arrow-up:after, .formField-select.arrow-up:after {
     content: url("../images/arrow.svg");
     position: relative;
     transform: rotate(180deg);
-    top: -4px; }
+    top: -4px;
+    cursor: pointer; }
   .formField-input .input, .formField-input .select, .formField-select .input, .formField-select .select {
     flex: 1 1 100%;
     position: relative; }
