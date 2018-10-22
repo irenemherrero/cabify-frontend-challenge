@@ -70,6 +70,7 @@ class App extends Component {
       submitButton: false,
       errorMail: false,
       errorPhone: false,
+      errorPrefix: false,
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
@@ -84,7 +85,6 @@ class App extends Component {
     this.saveLocalStorage=this.saveLocalStorage.bind(this);
     this.validateMail=this.validateMail.bind(this);
     this.validatePhone=this.validatePhone.bind(this);
-    // this.handlePrefixInputText=this.handlePrefixInputText.bind(this);
   }
 
   componentDidMount(){
