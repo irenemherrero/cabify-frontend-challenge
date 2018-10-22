@@ -396,7 +396,7 @@ class App extends Component {
             <div className="row row-separationMedium row-gutterMedium">
               <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : null} ${this.state.focus.prefix ? 'focus' : null}`}>
                 <div className="select">
-                  <input id="phone_prefix" name="prefix" className="select-button" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
+                  <input id="phone_prefix" name="prefix" className="select-input" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
                   <label htmlFor="phone_prefix">Prefix</label>
                   <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
                     <ul className="select-group-list">
@@ -404,7 +404,7 @@ class App extends Component {
                       return(
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
                           {/*} <span className="select-option-flag">Banderita</span>*/}
-                          <span className="select-option-country" id={option.prefix}>{option.country}</span>
+                          <span id={option.prefix} className={`select-option-country-${this.state.data.prefix === option.prefix ? 'selected' : null}`} >{option.country}</span>
                           <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
                         </li>
                       )
@@ -447,9 +447,6 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationHuge">
-
-    {/*Activar el botón cuando todos los datos estén rellenos*/}
-
               <input className={`button button-full button-primary ${!this.state.submitButton ? 'disabled': null}`} type="submit" value="Request" onClick={this.handleSubmit}/>
             </div>
           </form>

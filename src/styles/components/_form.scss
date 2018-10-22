@@ -77,7 +77,7 @@ input:-webkit-autofill {
         line-height: 16px;
       }
 
-      button {
+      &-input {
         cursor: pointer;
         border: 0;
         text-align: left;
@@ -97,8 +97,8 @@ input:-webkit-autofill {
         font-size: $font-size-l;
         position: absolute;
         left: -3px;
-        min-width: 200px;
-        max-height: 180px;
+        min-width: 240px;
+        max-height: 192px;
         z-index: 5;
         background-color: $color-white;
         overflow-y: scroll;
@@ -111,11 +111,12 @@ input:-webkit-autofill {
               margin: 10px 20px 20px 20px;
               display: flex;
               justify-content: space-between;
+              color: $color-positive-light;
             &-flag{
 
             }
-            &-name{
-
+            &-country-selected{
+              color: $color-black;
             }
             &-prefix{
 

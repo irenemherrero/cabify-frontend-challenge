@@ -436,14 +436,14 @@ input:-webkit-autofill {
       width: 100%;
       font-size: 12px;
       line-height: 16px; }
-    .formField-input .input button, .formField-input .select button, .formField-select .input button, .formField-select .select button {
+    .formField-input .input-input, .formField-input .select-input, .formField-select .input-input, .formField-select .select-input {
       cursor: pointer;
       border: 0;
       text-align: left;
       width: 72px;
       height: 40px;
       padding: 16px 0px 8px; }
-      .formField-input .input button:after, .formField-input .select button:after, .formField-select .input button:after, .formField-select .select button:after {
+      .formField-input .input-input:after, .formField-input .select-input:after, .formField-select .input-input:after, .formField-select .select-input:after {
         content: url("../images/arrow.svg");
         position: absolute;
         top: 14px;
@@ -453,8 +453,8 @@ input:-webkit-autofill {
       font-size: 14px;
       position: absolute;
       left: -3px;
-      min-width: 200px;
-      max-height: 180px;
+      min-width: 240px;
+      max-height: 192px;
       z-index: 5;
       background-color: #FFFFFF;
       overflow-y: scroll;
@@ -465,7 +465,10 @@ input:-webkit-autofill {
       .formField-input .input .popup .select-group-list .select-option, .formField-input .select .popup .select-group-list .select-option, .formField-select .input .popup .select-group-list .select-option, .formField-select .select .popup .select-group-list .select-option {
         margin: 10px 20px 20px 20px;
         display: flex;
-        justify-content: space-between; }
+        justify-content: space-between;
+        color: #717285; }
+        .formField-input .input .popup .select-group-list .select-option-country-selected, .formField-input .select .popup .select-group-list .select-option-country-selected, .formField-select .input .popup .select-group-list .select-option-country-selected, .formField-select .select .popup .select-group-list .select-option-country-selected {
+          color: #000000; }
     .formField-input .input .select-open, .formField-input .select .select-open, .formField-select .input .select-open, .formField-select .select .select-open {
       display: block; }
 
