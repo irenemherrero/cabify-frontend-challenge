@@ -394,7 +394,7 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationMedium row-gutterMedium">
-              <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : null} ${this.state.focus.prefix ? 'focus' : null}`}>
+              <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : null} ${this.state.focus.prefix ? 'focus' : null} ${this.state.activeSelect ? 'arrow-up' : 'arrow-down'}`}>
                 <div className="select">
                   <input id="phone_prefix" name="prefix" className="select-input" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
                   <label htmlFor="phone_prefix">Prefix</label>
