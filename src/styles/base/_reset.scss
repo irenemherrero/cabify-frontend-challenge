@@ -44,6 +44,11 @@ ol, ul {
   list-style: none;
 }
 
+ul::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 blockquote, q {
   quotes: none;
 }
@@ -75,5 +80,6 @@ input[type=number] {
 textarea {
   vertical-align: top;
 }
+
 
 

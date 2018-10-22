@@ -399,6 +399,7 @@ class App extends Component {
                   <input id="phone_prefix" name="prefix" className="select-input" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
                   <label htmlFor="phone_prefix">Prefix</label>
                   <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
+                  <div class="gradient"></div>
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
