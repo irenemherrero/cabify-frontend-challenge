@@ -69,6 +69,7 @@ class App extends Component {
       activeSelect: false,
       submitButton: false,
       errorMail: false,
+      errorPhone: false,
     }
     this.handleSelect=this.handleSelect.bind(this);
     this.handleChangeInputs=this.handleChangeInputs.bind(this);
@@ -81,6 +82,8 @@ class App extends Component {
     this.validateInputs=this.validateInputs.bind(this);
     this.sendParams=this.sendParams.bind(this);
     this.saveLocalStorage=this.saveLocalStorage.bind(this);
+    this.validateMail=this.validateMail.bind(this);
+    this.validatePhone=this.validatePhone.bind(this);
   }
 
   componentDidMount(){
@@ -106,7 +109,12 @@ class App extends Component {
           website: cardData.website ? true : false,
           address: cardData.address ? true : false,
         },
+      }, () => {
+        console.log(this.state.data);
+        this.handleSubmitButton();
+        console.log(this.state.submitButton);
       })
+      
     }
   }
 
@@ -277,9 +285,17 @@ class App extends Component {
       : null
   }
 
-  //Test that email has the proper format
+  //Validation of inputs and control the sending of data.
 
   validateInputs(){
+    this.validateMail();
+    this.validatePhone();
+    this.validateMail() && this.validatePhone() ? true : false;
+  }
+
+  //Test that email has the format
+
+  validateMail(){
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
       this.setState({
         errorMail: false, 
@@ -289,6 +305,23 @@ class App extends Component {
       this.setState({
         errorMail: true, 
       })
+      return false
+    }
+  }
+
+  //Test that phone number contains only numbers (0-9)
+  
+  validatePhone(){
+    console.log(this.state.data.phonenumber);
+    if(/^[0-9]+$/.test(this.state.data.phonenumber)){
+      this.setState({
+        errorPhone: false, 
+      }, ()=> {console.log(this.state.errorPhone)});
+      return true;
+    } else {
+      this.setState({
+        errorPhone: true, 
+      }, ()=> {console.log(this.state.errorPhone)});
       return false
     }
   }
@@ -389,7 +422,7 @@ class App extends Component {
                 </div>
               </div>
 {/* select final*/}
-              <div className={`formField-input col col9 ${this.state.active.phonenumber ? "active" : null} ${this.state.focus.phonenumber ? "focus" : null}`}>
+              <div className={`formField-input ${this.state.errorPhone ? 'input-error': null} col col9 ${this.state.active.phonenumber ? "active" : null} ${this.state.focus.phonenumber ? "focus" : null} ${this.state.errorPhone ? "error" : null}`}>
                 <div className="input">
                   <input type="tel" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="phonenumber">Phone number</label>
@@ -397,7 +430,7 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input ${this.state.errorMail ? 'email-error': null} col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null} ${this.state.errorMail ? "error" : null}`}>
+              <div className={`formField-input ${this.state.errorMail ? 'input-error': null} col col12 ${this.state.active.email ? "active" : null} ${this.state.focus.email ? "focus" : null} ${this.state.errorMail ? "error" : null}`}>
                 <div className="input">
                   <input type="email" name="email" value={email} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
                   <label htmlFor="email">Email</label>

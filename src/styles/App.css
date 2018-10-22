@@ -412,7 +412,7 @@ input:-webkit-autofill {
     border-color: #FC5959; }
     .formField-input.error .input input, .formField-input.error .select button, .formField-select.error .input input, .formField-select.error .select button {
       color: #7350FF; }
-  .formField-input.email-error:after, .formField-select.email-error:after {
+  .formField-input.input-error:after, .formField-select.input-error:after {
     content: url("../images/warning.svg");
     position: relative;
     top: 14px;
