@@ -35,18 +35,8 @@ body {
   line-height: 1;
 }
 
-div::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
 ol, ul {
   list-style: none;
-}
-
-ul::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
 }
 
 blockquote, q {

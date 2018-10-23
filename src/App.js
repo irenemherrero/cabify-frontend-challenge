@@ -1,39 +1,7 @@
 import React, { Component } from 'react';
 import cabifyLogo from './images/cabify-logo.svg';
 import './styles/App.css';
-
-//Data from select
-
-const phonePrefixes = [
-  {
-    country: 'Empty option',
-    prefix: '',
-  },
-  {
-    country: 'Spain',
-    prefix: '+34',
-  },
-  {
-    country: 'Chile',
-    prefix: '+56',
-  },
-  {
-    country: 'Peru',
-    prefix: '+51',
-  },
-  {
-    country: 'Mexico',
-    prefix: '+521',
-  },
-  {
-    country: 'Colombia',
-    prefix: '+57',
-  },
-  {
-    country: 'Bolivia',
-    prefix: '+561',
-  },
-]
+import phonePrefixes from './PhonePrefixes'
 
 class App extends Component {
   constructor(props){
@@ -401,18 +369,15 @@ class App extends Component {
                     {phonePrefixes.map(option => {
                       return(
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
-                          {/*} <span className="select-option-flag">Banderita</span>*/}
                           <span id={option.prefix} className={`select-option-country-${this.state.data.prefix === option.prefix ? 'selected' : ''}`} >{option.country}</span>
                           <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
                         </li>
                       )
                     })}
                     </ul> 
-                    {/*<div className="bottom-fade"></div>*/}  
                   </div>
                 </div>
               </div>
-{/* select final*/}
               <div className={`formField-input ${this.state.errorPhone ? 'input-error': ''} col col9 ${this.state.active.phonenumber ? "active" : ''} ${this.state.focus.phonenumber ? "focus" : ''} ${this.state.errorPhone ? "error" : ''}`}>
                 <div className="input">
                   <input type="number" maxLength="9" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>

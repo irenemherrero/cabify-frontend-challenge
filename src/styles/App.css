@@ -31,16 +31,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1; }
 
-div::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; }
-
 ol, ul {
   list-style: none; }
-
-ul::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; }
 
 blockquote, q {
   quotes: none; }
@@ -473,6 +465,9 @@ input:-webkit-autofill {
       border-radius: 3px;
       box-shadow: 2px 2px 5px 5px rgba(33, 34, 64, 0.16);
       cursor: pointer; }
+      .formField-input .input .popup::-webkit-scrollbar, .formField-input .select .popup::-webkit-scrollbar, .formField-select .input .popup::-webkit-scrollbar, .formField-select .select .popup::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; }
       .formField-input .input .popup .gradient, .formField-input .select .popup .gradient, .formField-select .input .popup .gradient, .formField-select .select .popup .gradient {
         width: 100%;
         height: 20%;
@@ -485,6 +480,9 @@ input:-webkit-autofill {
         min-width: 240px;
         max-height: 192px;
         display: inline-block; }
+        .formField-input .input .popup .select-group-list::-webkit-scrollbar, .formField-input .select .popup .select-group-list::-webkit-scrollbar, .formField-select .input .popup .select-group-list::-webkit-scrollbar, .formField-select .select .popup .select-group-list::-webkit-scrollbar {
+          width: 0px;
+          background: transparent; }
         .formField-input .input .popup .select-group-list .select-option, .formField-input .select .popup .select-group-list .select-option, .formField-select .input .popup .select-group-list .select-option, .formField-select .select .popup .select-group-list .select-option {
           margin: 10px 20px 20px 20px;
           display: flex;
