@@ -53,6 +53,8 @@ class App extends Component {
     this.saveLocalStorage=this.saveLocalStorage.bind(this);
     this.validateMail=this.validateMail.bind(this);
     this.validatePhone=this.validatePhone.bind(this);
+    this.setDefaultParams=this.setDefaultParams.bind(this);
+    this.clearLocalStorage=this.clearLocalStorage.bind(this);
   }
 
   componentDidMount(){
@@ -292,6 +294,8 @@ class App extends Component {
   //Function to send data. Here would be the request.
   
   sendParams(){
+    this.setDefaultParams();
+    this.clearLocalStorage();
     console.log('Data to send', this.state.data);
   }
 
@@ -299,6 +303,27 @@ class App extends Component {
 
   saveLocalStorage() {
     localStorage.setItem('cardData', JSON.stringify(this.state.data));
+  }
+
+  //Clear Local Storage when submit
+  clearLocalStorage(){
+    localStorage.clear();
+  }
+
+  //Set default data in Local Storage after sending data.
+
+  setDefaultParams(){
+    this.setState({
+      data: {
+        fullname: '',
+        jobdescription:'',
+        prefix: '+34',
+        phonenumber: '',
+        email:'',
+        website:'www.cabify.com',
+        address:'',
+      }
+    })
   }
 
   render() {
