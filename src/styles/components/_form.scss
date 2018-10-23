@@ -136,15 +136,17 @@ input:-webkit-autofill {
             display:flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 5px 20px;
             &::-webkit-scrollbar {
               width: 0px;
               background: transparent;
             }
             .select-option{
-              margin: 15px 0px;
+              border-radius: 4px;
+              margin: 20px 0px;
               display: flex;
               justify-content: space-between;
+              align-items: center;
               color: $color-positive-light;
               height: 32px;
               border-radius: 4px; 
@@ -152,10 +154,19 @@ input:-webkit-autofill {
               &-container{
                 display: flex;
                 align-items: center;
-
               }
-              &-country-selected{
+              &-flag{
+                margin-left: 15px;
+              }
+              &-prefix{
+                margin-right: 15px;
+              }
+              &-country{
+                margin-left: 15px;
+                &-selected{
                 color: $color-black;
+                margin-left: 15px;
+                }
               }
               &:hover{
                 background-color: $color-selago;
