@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import cabifyLogo from './images/cabify-logo.svg';
 import './styles/App.css';
-import phonePrefixes from './PhonePrefixes'
+import phonePrefixes from './PhonePrefixes';
+import FlagIcon from 'react-flag-kit/lib/FlagIcon';
 
 class App extends Component {
   constructor(props){
@@ -116,7 +117,7 @@ class App extends Component {
         ...this.state.focus,
         prefix: true,
       }
-    })
+    }, () => {console.log(this.state.activeSelect)})
   }
 
   // Function to save input in state. 
@@ -191,6 +192,7 @@ class App extends Component {
   //Make disapear select when clicking outside
 
   handleClickOutside(e){
+    console.log('holi');
     !this.wrapperRef.contains(e.target)
     ? this.state.data.prefix !== ''
       ? this.setState({
@@ -386,7 +388,7 @@ class App extends Component {
                   <input id="phone_prefix" 
                   name="prefix" 
                   maxLength="4"
-                  className="select-input" type="text" onClick={this.handleSelect} onChange = {this.handleChangeInputs} value={prefix}/>
+                  className="select-input" type="text" onChange = {this.handleChangeInputs} value={prefix} onClick={this.handleSelect}/>
                   <label htmlFor="phone_prefix">Prefix</label>
                   <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
                   <div className="gradient"></div>
@@ -394,7 +396,10 @@ class App extends Component {
                     {phonePrefixes.map(option => {
                       return(
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
-                          <span id={option.prefix} className={`select-option-country-${this.state.data.prefix === option.prefix ? 'selected' : ''}`} >{option.country}</span>
+                          <span className="select-option-container">
+                            <FlagIcon code={option.countryCode} size={15} />
+                            <span id={option.prefix} className={`select-option-country-${this.state.data.prefix === option.prefix ? 'selected' : ''}`} >{option.country}</span>
+                          </span>
                           <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
                         </li>
                       )

@@ -479,17 +479,28 @@ input:-webkit-autofill {
         overflow-x: hidden;
         min-width: 240px;
         max-height: 192px;
-        display: inline-block; }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px; }
         .formField-input .input .popup .select-group-list::-webkit-scrollbar, .formField-input .select .popup .select-group-list::-webkit-scrollbar, .formField-select .input .popup .select-group-list::-webkit-scrollbar, .formField-select .select .popup .select-group-list::-webkit-scrollbar {
           width: 0px;
           background: transparent; }
         .formField-input .input .popup .select-group-list .select-option, .formField-input .select .popup .select-group-list .select-option, .formField-select .input .popup .select-group-list .select-option, .formField-select .select .popup .select-group-list .select-option {
-          margin: 10px 20px 20px 20px;
+          margin: 15px 0px;
           display: flex;
           justify-content: space-between;
-          color: #717285; }
+          color: #717285;
+          height: 32px;
+          border-radius: 4px;
+          width: 224px; }
+          .formField-input .input .popup .select-group-list .select-option-container, .formField-input .select .popup .select-group-list .select-option-container, .formField-select .input .popup .select-group-list .select-option-container, .formField-select .select .popup .select-group-list .select-option-container {
+            display: flex;
+            align-items: center; }
           .formField-input .input .popup .select-group-list .select-option-country-selected, .formField-input .select .popup .select-group-list .select-option-country-selected, .formField-select .input .popup .select-group-list .select-option-country-selected, .formField-select .select .popup .select-group-list .select-option-country-selected {
             color: #000000; }
+          .formField-input .input .popup .select-group-list .select-option:hover, .formField-input .select .popup .select-group-list .select-option:hover, .formField-select .input .popup .select-group-list .select-option:hover, .formField-select .select .popup .select-group-list .select-option:hover {
+            background-color: #F8FAFB; }
     .formField-input .input .select-open, .formField-input .select .select-open, .formField-select .input .select-open, .formField-select .select .select-open {
       display: block; }
 
