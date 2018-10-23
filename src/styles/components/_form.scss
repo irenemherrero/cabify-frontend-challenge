@@ -122,7 +122,6 @@ input:-webkit-autofill {
 	          height: 20%;
 	          position:absolute;
 	          bottom:0;
-	          background: -webkit-linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 	          background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
           }
           .select-group-list{
@@ -136,30 +135,12 @@ input:-webkit-autofill {
               display: flex;
               justify-content: space-between;
               color: $color-positive-light;
-            &-flag{
-
-            }
-            &-country-selected{
-              color: $color-black;
+              &-country-selected{
+                color: $color-black;
+              }
             }
           }
         }
-        // .bottom-fade{
-        //   content:"";
-        //   position: relative;
-        //   // margin-top:
-        //   height: 30px;
-        //   z-index: 10;
-        //   background-image: linear-gradient(to top, white, transparent);
-        // }
-      }
-      .dropdown-fade{
-        //transition
-      }
-
-      .dropdown-back{
-        //transition
-      }
       .select-open{
         display: block;
       }

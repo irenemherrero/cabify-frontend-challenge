@@ -478,7 +478,6 @@ input:-webkit-autofill {
         height: 20%;
         position: absolute;
         bottom: 0;
-        background: -webkit-linear-gradient(white, rgba(255, 255, 255, 0));
         background: linear-gradient(to top, white, rgba(255, 255, 255, 0)); }
       .formField-input .input .popup .select-group-list, .formField-input .select .popup .select-group-list, .formField-select .input .popup .select-group-list, .formField-select .select .popup .select-group-list {
         overflow-y: scroll;
