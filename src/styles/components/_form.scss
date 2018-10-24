@@ -136,42 +136,44 @@ input:-webkit-autofill {
             display:flex;
             flex-direction: column;
             align-items: center;
-            padding: 5px 20px;
+            padding: 5px 8px;
             &::-webkit-scrollbar {
               width: 0px;
               background: transparent;
             }
-            .select-option{
-              border-radius: 4px;
-              margin: 20px 0px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              color: $color-positive-light;
-              height: 32px;
-              border-radius: 4px; 
-              width: 224px;
-              &-container{
+            .select-option-container{
+                height: 32px;
+                border-radius: 4px; 
+                width: 224px;
+                &:hover{
+                  background-color: $color-selago;
+                }
+              .select-option{
+                border-radius: 4px;
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
-              }
-              &-flag{
-                margin-left: 15px;
-              }
-              &-prefix{
-                margin-right: 15px;
-              }
-              &-country{
-                margin-left: 15px;
-                &-selected{
-                color: $color-black;
-                margin-left: 15px;
+                color: $color-positive-light;
+                &-container{
+                  display: flex;
+                  align-items: center;
+                }
+                &-flag{
+                  margin-left: 15px;
+                }
+                &-prefix{
+                  margin-right: 15px;
+                }
+                &-country{
+                  margin-left: 15px;
+                  &-selected{
+                  color: $color-black;
+                  margin-left: 15px;
+                  }
                 }
               }
-              &:hover{
-                background-color: $color-selago;
-              }
             }
+            
           }
         }
       .select-open{

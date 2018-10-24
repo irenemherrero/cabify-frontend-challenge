@@ -395,13 +395,15 @@ class App extends Component {
                     <ul className="select-group-list">
                     {phonePrefixes.map(option => {
                       return(
+                        <div className="select-option-container">
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
                           <span className="select-option-container">
                             <FlagIcon className="select-option-flag" code={option.countryCode} size={20} />
                             <span id={option.prefix} className={`select-option-country${this.state.data.prefix === option.prefix ? '-selected' : ''}`} >{option.country}</span>
                           </span>
-                          <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
+                      <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
                         </li>
+                        </div>
                       )
                     })}
                     </ul> 
