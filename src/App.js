@@ -108,7 +108,7 @@ class App extends Component {
 
   handleSelect(){
     this.setState({
-      activeSelect: true,
+      activeSelect: !this.state.activeSelect,
       active: {
         ...this.state.active,
         prefix: true,
@@ -192,8 +192,8 @@ class App extends Component {
   //Make disapear select when clicking outside
 
   handleClickOutside(e){
-    console.log('holi');
-    !this.wrapperRef.contains(e.target)
+    console.log(e.target);
+    !this.wrapperRef.contains(e.target) && e.target.id !== "phone_prefix"
     ? this.state.data.prefix !== ''
       ? this.setState({
           activeSelect: false,
