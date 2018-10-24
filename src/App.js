@@ -5,17 +5,17 @@ import phonePrefixes from './PhonePrefixes';
 import FlagIcon from 'react-flag-kit/lib/FlagIcon';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       data: {
         fullname: '',
-        jobdescription:'',
+        jobdescription: '',
         prefix: '+34',
         phonenumber: '',
-        email:'',
-        website:'www.cabify.com',
-        address:'',
+        email: '',
+        website: 'www.cabify.com',
+        address: '',
       },
       active: {
         fullname: false,
@@ -39,28 +39,34 @@ class App extends Component {
       submitButton: false,
       errorMail: false,
       errorPhone: false,
-      errorPrefix: false,
     }
-    this.handleSelect=this.handleSelect.bind(this);
-    this.handleChangeInputs=this.handleChangeInputs.bind(this);
-    this.setWrapperRef=this.setWrapperRef.bind(this);
-    this.handleClickOutside=this.handleClickOutside.bind(this);
-    this.handleActiveFocus=this.handleActiveFocus.bind(this);
-    this.handleBlur=this.handleBlur.bind(this);
-    this.handleSubmitButton=this.handleSubmitButton.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
-    this.validateInputs=this.validateInputs.bind(this);
-    this.sendParams=this.sendParams.bind(this);
-    this.saveLocalStorage=this.saveLocalStorage.bind(this);
-    this.validateMail=this.validateMail.bind(this);
-    this.validatePhone=this.validatePhone.bind(this);
-    this.setDefaultParams=this.setDefaultParams.bind(this);
-    this.clearLocalStorage=this.clearLocalStorage.bind(this);
+    this.handleOpenSelect = this.handleOpenSelect.bind(this);
+    this.handleChangeInputs = this.handleChangeInputs.bind(this);
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.handleActiveFocus = this.handleActiveFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleSubmitButton = this.handleSubmitButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateInputs = this.validateInputs.bind(this);
+    this.sendParams = this.sendParams.bind(this);
+    this.saveLocalStorage = this.saveLocalStorage.bind(this);
+    this.validateMail = this.validateMail.bind(this);
+    this.validatePhone = this.validatePhone.bind(this);
+    this.setDefaultParams = this.setDefaultParams.bind(this);
+    this.clearLocalStorage = this.clearLocalStorage.bind(this);
+    this.handleClickSelect = this.handleClickSelect.bind(this);
+    this.handleActivePrefixInput = this.handleActivePrefixInput.bind(this);
   }
 
-  componentDidMount(){
+  //Bring data from Local Storage
+  //Save data from LocalStorage in state
+  //Control input styles depending on data from Local Storage
+  //Check if all data are completed to handle request button
+
+  componentDidMount() {
     const cardData = JSON.parse(localStorage.getItem('cardData'))
-    if(cardData){
+    if (cardData) {
       this.setState({
         data: {
           fullname: cardData.fullname || '',
@@ -80,17 +86,14 @@ class App extends Component {
           website: cardData.website ? true : false,
           address: cardData.address ? true : false,
         },
-      }, () => {
-        this.handleSubmitButton();
-      })
+      }, () => {this.handleSubmitButton();
+      });
     }
   }
 
-  // Functions to control styles
+  // Handle input styles (active, focus)
 
-  // Input styles (active, focused)
-
-  handleActiveFocus(e){
+  handleActiveFocus(e) {
     const name = e.target.name;
     this.setState({
       active: {
@@ -101,77 +104,93 @@ class App extends Component {
         ...this.state.focus,
         [name]: true,
       },
-    })
+    });
   }
 
-  // Select styles (opened, active, focus)
+  // Handle custom select open/closed
 
-  handleSelect(){
+  handleOpenSelect() {
     this.setState({
       activeSelect: !this.state.activeSelect,
-      active: {
-        ...this.state.active,
-        prefix: true,
-      },
-      focus: {
-        ...this.state.focus,
-        prefix: true,
-      }
-    }, () => {console.log(this.state.activeSelect)})
+    });
   }
 
-  // Function to save input in state. 
-  // Function to control select styles when an option is selected.
+  // Save input values in state
+  // Handle submit button
+  // Save data in LocalStorage
 
-  handleChangeInputs(e){
-    console.dir(e.target);
+  handleChangeInputs(e) {
     const value = e.target.value;
     const name = e.target.name;
+    this.setState({
+      data: {
+        ...this.state.data,
+        [name]: value,
+      },
+    }, () => {
+      this.handleSubmitButton();
+      this.saveLocalStorage();
+    }
+    );
+  }
+
+  //Save prefix in state and hide select. Remove focus.
+  //Handle submit button
+  //Save data in Local Storage
+
+  handleClickSelect(e) {
     const id = e.target.id;
-    name !== undefined
-      ? this.setState({
-          data: {
-            ...this.state.data,
-            [name]: value,
-          },
-        },() => {this.handleSubmitButton();
-                this.saveLocalStorage();}
-        )
-      : this.setState({
+    this.setState({
         data: {
           ...this.state.data,
           prefix: id,
-        }, 
+        },
         activeSelect: !this.state.activeSelect,
+        focus: {
+          ...this.state.focus,
+          prefix: false,
+        },
+      }, () => {
+        this.handleActivePrefixInput(id);
+        this.handleSubmitButton();
+        this.saveLocalStorage();
+      });
+  }
+
+  //Handle prefix input active when select is closed
+
+  handleActivePrefixInput(id){
+    id !== ''
+    ? this.setState({
         active: {
           ...this.state.active,
           prefix: true,
         },
-        focus: {
-          ...this.state.focus,
-          prefix: true,
+      })
+    : this.setState({
+        active: {
+          ...this.state.active,
+          prefix: false,
         },
-      }, () => {this.handleSubmitButton();
-                this.saveLocalStorage();}
-      )
+      });
   }
 
-  //Input styles (unactive, unfocused)
+  //Handle input styles (unactive, unfocused)
 
-  handleBlur(e){
+  handleBlur(e) {
     const name = e.target.name;
     const value = e.target.value;
     return !value
       ? this.setState({
-          active: {
-            ...this.state.active,
-            [name]: false,
-          },
-          focus: {
-            ...this.state.focus,
-            [name]: false,
-          },
-        })
+        active: {
+          ...this.state.active,
+          [name]: false,
+        },
+        focus: {
+          ...this.state.focus,
+          [name]: false,
+        },
+      })
       : this.setState({
         active: {
           ...this.state.active,
@@ -181,22 +200,24 @@ class App extends Component {
           ...this.state.focus,
           [name]: false,
         },
-        })
+      });
   }
 
-  // Select styles when clicking outside select.
-  
-  setWrapperRef(node){
+  // Handle select styles when clicking outside.
+
+  //Set select as wrapper reference.
+
+  setWrapperRef(node) {
     this.wrapperRef = node;
   }
 
-  //Make disapear select when clicking outside
+  //Closing select when clicking outside.
+  //Handle input styles when closing select depending on prefix value
 
-  handleClickOutside(e){
-    console.log(e.target);
-    !this.wrapperRef.contains(e.target) && e.target.id !== "phone_input_container" && e.target.id !== "phone_prefix"
-    ? this.state.data.prefix !== ''
-      ? this.setState({
+  handleClickOutside(e) {
+    !this.wrapperRef.contains(e.target)
+      ? this.state.data.prefix !== ''
+        ? this.setState({
           activeSelect: false,
           active: {
             ...this.state.active,
@@ -206,24 +227,24 @@ class App extends Component {
             ...this.state.focus,
             prefix: false,
           },
-          })
-      : this.setState({
-        activeSelect: false,
-        active: {
-          ...this.state.active,
-          prefix: false,
-        },
-        focus: {
-          ...this.state.focus,
-          prefix: false,
-        },
         })
-    : null;
+        : this.setState({
+          activeSelect: false,
+          active: {
+            ...this.state.active,
+            prefix: false,
+          },
+          focus: {
+            ...this.state.focus,
+            prefix: false,
+          },
+        })
+      : null;
   }
 
-  //Activate button when all inputs are filled.
-  
-  handleSubmitButton(){
+  //Activate request button when all inputs are filled.
+
+  handleSubmitButton() {
     const {
       fullname,
       jobdescription,
@@ -234,21 +255,18 @@ class App extends Component {
       address,
     } = this.state.data;
     fullname && jobdescription && prefix && phonenumber && email && website && address
-    ? this.setState({
-      submitButton: true,
-    })
-    : this.setState({
-      submitButton: false,
-    })
+      ? this.setState({
+        submitButton: true,
+      })
+      : this.setState({
+        submitButton: false,
+      });
   }
-
-  //Submit functions
 
   //Handle submit
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
-    console.log(this.validateInputs())
     this.validateInputs()
       ? this.sendParams()
       : null
@@ -256,77 +274,77 @@ class App extends Component {
 
   //Validation of inputs and control the sending of data.
 
-  validateInputs(){
+  validateInputs() {
     this.validateMail();
     this.validatePhone();
     return this.validateMail() && this.validatePhone() ? true : false;
   }
 
-  //Test that email has the format
+  //Test that email has a valid format
 
-  validateMail(){
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)){
+  validateMail() {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.data.email)) {
       this.setState({
-        errorMail: false, 
-      })
+        errorMail: false,
+      });
       return true
     } else {
       this.setState({
-        errorMail: true, 
-      })
+        errorMail: true,
+      });
       return false
     }
   }
 
-  //Test that phone number contains only numbers (0-9)
-  
-  validatePhone(){
-    if(/^.[0-9]{8,}$/.test(this.state.data.phonenumber)){
+  //Test that phone number contains almost 9 numbers and only numbers
+
+  validatePhone() {
+    if (/^.[0-9]{8,}$/.test(this.state.data.phonenumber)) {
       this.setState({
-        errorPhone: false, 
+        errorPhone: false,
       });
       return true;
     } else {
       this.setState({
-        errorPhone: true, 
+        errorPhone: true,
       });
       return false
     }
   }
 
-  //Function to send data. Here would be the request.
-  
-  sendParams(){
+  //Function to send data and clear Local Storage. Here would be the request.
+
+  sendParams() {
     this.setDefaultParams();
     this.clearLocalStorage();
     console.log('Data to send', this.state.data);
   }
 
-  //Save data in Local Storage in case of refreshing
+  //Save data in Local Storage
 
   saveLocalStorage() {
     localStorage.setItem('cardData', JSON.stringify(this.state.data));
   }
 
   //Clear Local Storage when submit
-  clearLocalStorage(){
+  clearLocalStorage() {
     localStorage.clear();
   }
 
   //Set default data in Local Storage after sending data.
 
-  setDefaultParams(){
+  setDefaultParams() {
     this.setState({
       data: {
         fullname: '',
-        jobdescription:'',
+        jobdescription: '',
         prefix: '+34',
         phonenumber: '',
-        email:'',
-        website:'www.cabify.com',
-        address:'',
+        email: '',
+        website: 'www.cabify.com',
+        address: '',
       }
-    })
+    });
   }
 
   render() {
@@ -368,62 +386,123 @@ class App extends Component {
         <article className="builder col col6">
           <form className="form" action="">
             <div className="row">
-              <div className={`formField-input col col12 ${this.state.active.fullname ? "active" : ''} ${this.state.focus.fullname ? "focus" : ''}`}>
+              <div className={`formField-input col col12 
+                ${this.state.active.fullname ? "active" : ''} 
+                ${this.state.focus.fullname ? "focus" : ''}`}
+              >
                 <div className="input">
-                  <input type="text" name="fullname" value={fullname} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
+                  <input 
+                    type="text" 
+                    name="fullname" 
+                    value={fullname} 
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                    onBlur={this.handleBlur} 
+                  />
                   <label htmlFor="fullname">Full name</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input col col12 ${this.state.active.jobdescription ? "active" :''} ${this.state.focus.jobdescription ? "focus" : ''}`}>
+              <div className={`formField-input col col12 
+                ${this.state.active.jobdescription ? "active" : ''} 
+                ${this.state.focus.jobdescription ? "focus" : ''}`}
+              >
                 <div className="input">
-                  <input type="text" name="jobdescription" value={jobdescription} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
+                  <input 
+                    type="text" 
+                    name="jobdescription" 
+                    value={jobdescription} 
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                    onBlur={this.handleBlur} 
+                  />
                   <label htmlFor="jobdescription">Job description</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium row-gutterMedium">
-              <div id="phone_input_container" className={`formField-select col col3 ${this.state.active.prefix ? 'active' : ''} ${this.state.focus.prefix ? 'focus' : ''} ${this.state.activeSelect ? 'arrow-up' : 'arrow-down'}`}  onClick={this.handleSelect}>
+              <div 
+                ref={this.setWrapperRef} 
+                className={`formField-select col col3 
+                  ${this.state.active.prefix ? 'active' : ''} 
+                  ${this.state.focus.prefix ? 'focus' : ''} 
+                  ${this.state.activeSelect ? 'arrow-up' : 'arrow-down'}`} 
+                onClick={this.handleOpenSelect}>
                 <div className="select">
-                  <input id="phone_prefix" 
-                  name="prefix" 
-                  maxLength="4"
-                  className="select-input" type="text" onChange = {this.handleChangeInputs} value={prefix}/>
+                  <input 
+                    id="phone_prefix"
+                    type="text"
+                    name="prefix"
+                    value={prefix}
+                    maxLength="4"
+                    className="select-input"  
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                  />
                   <label htmlFor="phone_prefix">Prefix</label>
-                  <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
-                  <div className="gradient"></div>
+                  <div className={`popup ${this.state.activeSelect ? 'open' : ''}`}>
                     <ul className="select-group-list">
-                    {phonePrefixes.map(option => {
-                      return(
-                        <div className="select-option-container">
-                        <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
-                          <span className="select-option-container" id={option.prefix}>
-                            <span className="select-option-span" id={option.prefix}>
-                            </span>
-                            <FlagIcon className="select-option-flag" code={option.countryCode} size={20} />
-                            <span id={option.prefix} className={`select-option-country${this.state.data.prefix === option.prefix ? '-selected' : ''}`} >{option.country}</span>
-                          </span>
-                      <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
-                        </li>
-                        </div>
-                      )
-                    })}
-                    </ul> 
+                      {phonePrefixes.map(option => {
+                        return (
+                          <div className="select-option-container" key={option.prefix}>
+                            <li 
+                              key={option.prefix} 
+                              className="select-option" 
+                              id={option.prefix} 
+                              onClick={this.handleClickSelect}>
+                              <span className="select-option-container-small" id={option.prefix}>
+                                <span className="select-option-span" id={option.prefix}></span>
+                                <FlagIcon 
+                                  className="select-option-flag" 
+                                  code={option.countryCode} 
+                                  size={20} 
+                                />
+                                <span className={`select-option-country${this.state.data.prefix === option.prefix ? '-selected' : ''}`} id={option.prefix}>{option.country}</span>
+                              </span>
+                              <span className="select-option-prefix" id={option.prefix}>{option.prefix}</span>
+                            </li>
+                          </div>
+                        )
+                      })}
+                    </ul>
                   </div>
                 </div>
               </div>
-              <div className={`formField-input ${this.state.errorPhone ? 'input-error': ''} col col9 ${this.state.active.phonenumber ? "active" : ''} ${this.state.focus.phonenumber ? "focus" : ''} ${this.state.errorPhone ? "error" : ''}`}>
+              <div className={`formField-input col col9
+                ${this.state.errorPhone ? 'input-error' : ''}  
+                ${this.state.active.phonenumber ? "active" : ''} 
+                ${this.state.focus.phonenumber ? "focus" : ''} 
+                ${this.state.errorPhone ? "error" : ''}`}>
                 <div className="input">
-                  <input type="number" maxLength="9" name="phonenumber" value={phonenumber} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
+                  <input 
+                    type="tel" 
+                    name="phonenumber" 
+                    value={phonenumber} 
+                    maxLength="9" 
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                    onBlur={this.handleBlur} 
+                  />
                   <label htmlFor="phonenumber">Phone number</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input ${this.state.errorMail ? 'input-error': ''} col col12 ${this.state.active.email ? "active" : ''} ${this.state.focus.email ? "focus" : ''} ${this.state.errorMail ? "error" : ''}`}>
+              <div className={`formField-input col col12
+                ${this.state.errorMail ? 'input-error' : ''}  
+                ${this.state.active.email ? "active" : ''} 
+                ${this.state.focus.email ? "focus" : ''} 
+                ${this.state.errorMail ? "error" : ''}`}>
                 <div className="input">
-                  <input type="email" name="email" value={email} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur}/>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={email} 
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                    onBlur={this.handleBlur} 
+                  />
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
@@ -431,21 +510,40 @@ class App extends Component {
             <div className="row row-separationMedium">
               <div className="formField-input active disabled col col12">
                 <div className="input">
-                  <input type="text" name="website" value={website} disabled/>
+                  <input 
+                    type="text" 
+                    name="website" 
+                    value={website} 
+                    disabled 
+                  />
                   <label htmlFor="website">Website</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationMedium">
-              <div className={`formField-input col col12 ${this.state.active.address ? "active" : ''} ${this.state.focus.address ? "focus" : ''}`} >
+              <div className={`formField-input col col12 
+                ${this.state.active.address ? "active" : ''} 
+                ${this.state.focus.address ? "focus" : ''}`} 
+              >
                 <div className="input">
-                  <input type="text" name="address" value={address} onChange={this.handleChangeInputs} onFocus={this.handleActiveFocus} onBlur={this.handleBlur} />
+                  <input 
+                    type="text" 
+                    name="address" 
+                    value={address} 
+                    onChange={this.handleChangeInputs} 
+                    onFocus={this.handleActiveFocus} 
+                    onBlur={this.handleBlur} />
                   <label htmlFor="address">Address</label>
                 </div>
               </div>
             </div>
             <div className="row row-separationHuge">
-              <input className={`button button-full button-primary ${!this.state.submitButton ? 'disabled': ''}`} type="submit" value="Request" onClick={this.handleSubmit}/>
+              <input 
+                className={`button button-full button-primary ${!this.state.submitButton ? 'disabled' : ''}`} 
+                type="submit" 
+                value="Request" 
+                onClick={this.handleSubmit} 
+              />
             </div>
           </form>
         </article>
