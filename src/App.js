@@ -193,7 +193,7 @@ class App extends Component {
 
   handleClickOutside(e){
     console.log(e.target);
-    !this.wrapperRef.contains(e.target) && e.target.id !== "phone_prefix"
+    !this.wrapperRef.contains(e.target) && e.target.id !== "phone_input_container" && e.target.id !== "phone_prefix"
     ? this.state.data.prefix !== ''
       ? this.setState({
           activeSelect: false,
@@ -383,12 +383,12 @@ class App extends Component {
               </div>
             </div>
             <div className="row row-separationMedium row-gutterMedium">
-              <div className={`formField-select col col3 ${this.state.active.prefix ? 'active' : ''} ${this.state.focus.prefix ? 'focus' : ''} ${this.state.activeSelect ? 'arrow-up' : 'arrow-down'}`}>
+              <div id="phone_input_container" className={`formField-select col col3 ${this.state.active.prefix ? 'active' : ''} ${this.state.focus.prefix ? 'focus' : ''} ${this.state.activeSelect ? 'arrow-up' : 'arrow-down'}`}  onClick={this.handleSelect}>
                 <div className="select">
                   <input id="phone_prefix" 
                   name="prefix" 
                   maxLength="4"
-                  className="select-input" type="text" onChange = {this.handleChangeInputs} value={prefix} onClick={this.handleSelect}/>
+                  className="select-input" type="text" onChange = {this.handleChangeInputs} value={prefix}/>
                   <label htmlFor="phone_prefix">Prefix</label>
                   <div ref={this.setWrapperRef} className={`popup dropdown-fade dropdown-back ${this.state.activeSelect ? 'select-open' : ''}`}>
                   <div className="gradient"></div>
