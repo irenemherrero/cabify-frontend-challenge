@@ -124,10 +124,11 @@ class App extends Component {
   // Function to control select styles when an option is selected.
 
   handleChangeInputs(e){
+    console.dir(e.target);
     const value = e.target.value;
     const name = e.target.name;
     const id = e.target.id;
-    return name !== undefined
+    name !== undefined
       ? this.setState({
           data: {
             ...this.state.data,
@@ -397,7 +398,9 @@ class App extends Component {
                       return(
                         <div className="select-option-container">
                         <li key={option.prefix} className="select-option" id={option.prefix} onClick={this.handleChangeInputs}>
-                          <span className="select-option-container">
+                          <span className="select-option-container" id={option.prefix}>
+                            <span className="select-option-span" id={option.prefix}>
+                            </span>
                             <FlagIcon className="select-option-flag" code={option.countryCode} size={20} />
                             <span id={option.prefix} className={`select-option-country${this.state.data.prefix === option.prefix ? '-selected' : ''}`} >{option.country}</span>
                           </span>

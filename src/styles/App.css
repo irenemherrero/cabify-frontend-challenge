@@ -501,8 +501,12 @@ input:-webkit-autofill {
             .formField-input .input .popup .select-group-list .select-option-container .select-option-container, .formField-input .select .popup .select-group-list .select-option-container .select-option-container, .formField-select .input .popup .select-group-list .select-option-container .select-option-container, .formField-select .select .popup .select-group-list .select-option-container .select-option-container {
               display: flex;
               align-items: center; }
-            .formField-input .input .popup .select-group-list .select-option-container .select-option-flag, .formField-input .select .popup .select-group-list .select-option-container .select-option-flag, .formField-select .input .popup .select-group-list .select-option-container .select-option-flag, .formField-select .select .popup .select-group-list .select-option-container .select-option-flag {
-              margin-left: 15px; }
+              .formField-input .input .popup .select-group-list .select-option-container .select-option-container .select-option-span, .formField-input .select .popup .select-group-list .select-option-container .select-option-container .select-option-span, .formField-select .input .popup .select-group-list .select-option-container .select-option-container .select-option-span, .formField-select .select .popup .select-group-list .select-option-container .select-option-container .select-option-span {
+                position: absolute;
+                width: 40px;
+                height: 15px; }
+              .formField-input .input .popup .select-group-list .select-option-container .select-option-container .select-option-flag, .formField-input .select .popup .select-group-list .select-option-container .select-option-container .select-option-flag, .formField-select .input .popup .select-group-list .select-option-container .select-option-container .select-option-flag, .formField-select .select .popup .select-group-list .select-option-container .select-option-container .select-option-flag {
+                margin-left: 15px; }
             .formField-input .input .popup .select-group-list .select-option-container .select-option-prefix, .formField-input .select .popup .select-group-list .select-option-container .select-option-prefix, .formField-select .input .popup .select-group-list .select-option-container .select-option-prefix, .formField-select .select .popup .select-group-list .select-option-container .select-option-prefix {
               margin-right: 15px; }
             .formField-input .input .popup .select-group-list .select-option-container .select-option-country, .formField-input .select .popup .select-group-list .select-option-container .select-option-country, .formField-select .input .popup .select-group-list .select-option-container .select-option-country, .formField-select .select .popup .select-group-list .select-option-container .select-option-country {

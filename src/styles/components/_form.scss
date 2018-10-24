@@ -157,10 +157,16 @@ input:-webkit-autofill {
                 &-container{
                   display: flex;
                   align-items: center;
+                  .select-option-span{
+                    position: absolute;
+                    width: 40px;
+                    height: 15px;
+                  }
+                  .select-option-flag{
+                    margin-left: 15px; 
+                  }
                 }
-                &-flag{
-                  margin-left: 15px;
-                }
+                
                 &-prefix{
                   margin-right: 15px;
                 }
